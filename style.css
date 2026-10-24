@@ -1,0 +1,436 @@
+/* ==========================================================================
+   Groupie Tracker — thème des trois diapos
+
+   Deux thèmes, mêmes classes :
+   - clair  : :root
+   - sombre : html.dark (touche `d`, ou le bouton lune/soleil)
+
+   Deux règles :
+   1. Toute couleur passe par une variable, sinon elle est fausse dans un
+      des deux thèmes.
+   2. Jamais de contraste baissé (texte gris, opacité, filigrane) : ça
+      devient illisible à l'export PDF. On hiérarchise par la taille, le
+      gras ou un encadré.
+   ========================================================================== */
+
+:root {
+  --gt-bg: #f6f6fb;
+  --gt-surface: #ffffff;
+  --gt-border: #c9c9da;
+  --gt-text: #16141f;
+  --gt-strong: #000000;
+
+  --gt-violet: #6d28d9;
+  --gt-cyan: #0369a1;
+  --gt-green: #047857;
+  --gt-red: #be123c;
+  --gt-amber: #b45309;
+
+  --gt-violet-bg: #f1eafe;
+  --gt-cyan-bg: #e6f3fb;
+  --gt-green-bg: #e3f6ee;
+  --gt-red-bg: #fdecef;
+  --gt-amber-bg: #fdf3e2;
+
+  --gt-code-bg: #ffffff;
+  --gt-inline-bg: #f1eafe;
+  --gt-inline-text: #4c1d95;
+  --gt-title: #2e1065;
+
+  --gt-radius: 12px;
+}
+
+html.dark {
+  --gt-bg: #0d0d16;
+  --gt-surface: #171724;
+  --gt-border: #3a3a52;
+  --gt-text: #ededf5;
+  --gt-strong: #ffffff;
+
+  --gt-violet: #c4a1ff;
+  --gt-cyan: #67d8f0;
+  --gt-green: #5ee0b0;
+  --gt-red: #ff8da1;
+  --gt-amber: #fcd06a;
+
+  --gt-violet-bg: #251a3d;
+  --gt-cyan-bg: #12293a;
+  --gt-green-bg: #12302a;
+  --gt-red-bg: #36161f;
+  --gt-amber-bg: #33280f;
+
+  --gt-code-bg: #10101a;
+  --gt-inline-bg: #2a2042;
+  --gt-inline-text: #e4d4ff;
+  --gt-title: #ffffff;
+
+  color-scheme: dark;
+}
+
+/* --- Fond et texte -------------------------------------------------------- */
+
+.slidev-layout {
+  background: var(--gt-bg);
+  color: var(--gt-text);
+  font-family: 'Outfit', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 400;
+}
+
+.slidev-layout h1 {
+  color: var(--gt-title);
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.7rem;
+}
+
+/* Le thème Slidev pâlit le paragraphe sous un titre : on annule */
+.slidev-layout h1 + p {
+  opacity: 1;
+  color: var(--gt-text);
+}
+
+.slidev-layout.section h1 {
+  font-size: 2.6rem;
+}
+
+.slidev-page-1 h1 {
+  font-size: 3.2rem;
+  line-height: 1.1;
+}
+
+.slidev-layout strong {
+  color: var(--gt-strong);
+  font-weight: 700;
+}
+
+.slidev-layout a {
+  color: var(--gt-cyan);
+  font-weight: 600;
+}
+
+.big { font-size: 1.3rem; line-height: 1.5; }
+
+/* --- Code ----------------------------------------------------------------- */
+
+/* JetBrains Mono dessine `!=` comme `≠` et `:=` comme un seul signe. Les
+   étudiants recopient le code : ils doivent voir les vrais caractères. */
+.slidev-layout code,
+.slidev-layout pre,
+.term,
+.file,
+.kbd,
+.browser-bar {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+}
+
+.slidev-layout :not(pre) > code {
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 0.85em;
+  background: var(--gt-inline-bg);
+  color: var(--gt-inline-text);
+  border-radius: 5px;
+  padding: 0.08em 0.35em;
+}
+
+.slidev-layout pre.slidev-code,
+.slidev-layout .slidev-code {
+  border-radius: var(--gt-radius) !important;
+  border: 1px solid var(--gt-border);
+  background: var(--gt-code-bg) !important;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  padding: 0.7rem 0.9rem !important;
+}
+
+/* gofmt indente avec des tabulations : 8 colonnes par défaut, beaucoup trop */
+.slidev-layout pre {
+  tab-size: 4;
+  -moz-tab-size: 4;
+}
+
+.slidev-layout.text-center pre.slidev-code {
+  text-align: left;
+}
+
+/* --- Nom du fichier au-dessus d'un bloc de code ----------------------------
+   <div class="file">main.go</div>  puis le bloc de code
+   ------------------------------------------------------------------------ */
+
+.file {
+  display: inline-block;
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px 6px 0 0;
+  background: var(--gt-violet);
+  color: var(--gt-bg);
+  margin-bottom: -0.1rem;
+}
+
+.file + .slidev-code-wrapper pre.slidev-code,
+.file + pre.slidev-code {
+  margin-top: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+
+/* --- Terminal ---------------------------------------------------------------
+   Toujours sombre, dans les deux thèmes. Vue fusionne les espaces : un
+   retour à la ligne s'écrit <br/>.
+   ------------------------------------------------------------------------ */
+
+.term {
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--gt-radius);
+  background: #0b0b14;
+  color: #f2f2f7;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.term .prompt { color: #5ee0b0; font-weight: 700; }
+.term .ok     { color: #5ee0b0; }
+.term .err    { color: #ff8da1; }
+
+/* --- Navigateur : une vraie capture du site --------------------------------
+   <div class="browser"><div class="browser-bar">localhost:8080</div>
+   <img src="/img/etape-2.png"></div>
+   ------------------------------------------------------------------------ */
+
+.browser {
+  border-radius: var(--gt-radius);
+  border: 1px solid var(--gt-border);
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.browser-bar {
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.35rem 0.8rem;
+  background: var(--gt-surface);
+  border-bottom: 1px solid var(--gt-border);
+  color: var(--gt-text);
+}
+
+.browser img {
+  display: block;
+  width: 100%;
+}
+
+/* --- Tableaux ------------------------------------------------------------- */
+
+.slidev-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.slidev-layout th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--gt-strong);
+  border-bottom: 2px solid var(--gt-border) !important;
+  padding: 0.45rem 0.7rem;
+}
+
+.slidev-layout td {
+  border-bottom: 1px solid var(--gt-border) !important;
+  padding: 0.45rem 0.7rem;
+}
+
+.slidev-layout tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* --- Listes --------------------------------------------------------------- */
+
+.slidev-layout ol {
+  padding-left: 1.35rem;
+}
+
+.slidev-layout li {
+  margin: 0.35rem 0;
+}
+
+/* --- Encadrés ------------------------------------------------------------- */
+
+.box {
+  border-radius: var(--gt-radius);
+  border: 1px solid var(--gt-border);
+  background: var(--gt-surface);
+  padding: 0.6rem 0.95rem;
+}
+
+:where(.box + .box) { margin-top: 0.7rem; }
+
+.box > :first-child { margin-top: 0; }
+.box > :last-child { margin-bottom: 0; }
+
+.box-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.good { border-left: 4px solid var(--gt-green);  background: var(--gt-green-bg); }
+.info { border-left: 4px solid var(--gt-cyan);   background: var(--gt-cyan-bg); }
+.trap { border-left: 4px solid var(--gt-amber);  background: var(--gt-amber-bg); }
+.bad  { border-left: 4px solid var(--gt-red);    background: var(--gt-red-bg); }
+
+.good .box-label { color: var(--gt-green); }
+.info .box-label { color: var(--gt-cyan); }
+.trap .box-label { color: var(--gt-amber); }
+.bad  .box-label { color: var(--gt-red); }
+
+/* --- Étiquettes ----------------------------------------------------------- */
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  border: 2px solid var(--gt-violet);
+  background: var(--gt-violet-bg);
+  color: var(--gt-violet);
+}
+
+.slidev-layout h1 .tag {
+  line-height: 1.3;
+  vertical-align: middle;
+}
+
+/* --- Schéma : navigateur → Go → API --------------------------------------- */
+
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.flow-node {
+  flex: 1;
+  text-align: center;
+  padding: 0.8rem 0.6rem;
+  border-radius: var(--gt-radius);
+  border: 2px solid var(--gt-border);
+  background: var(--gt-surface);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.flow-node b {
+  display: block;
+  font-size: 1.05rem;
+  color: var(--gt-violet);
+  margin-bottom: 0.2rem;
+}
+
+.flow-arrow {
+  flex: 0 0 auto;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gt-violet);
+}
+
+/* --- Étapes --------------------------------------------------------------- */
+
+/* Grand numéro sur les slides de section : plein, jamais en filigrane */
+.step-num {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: var(--gt-violet);
+  color: var(--gt-bg);
+  margin-bottom: 0.8rem;
+}
+
+/* La liste des 7 étapes, avec celle du jour en gras */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+}
+
+.steps > div {
+  padding: 0.45rem 0.35rem;
+  border-radius: 10px;
+  border: 2px solid var(--gt-border);
+  background: var(--gt-surface);
+  font-size: 0.72rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.steps > div b {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--gt-violet);
+}
+
+.steps > div.on {
+  border-color: var(--gt-violet);
+  background: var(--gt-violet-bg);
+  font-weight: 700;
+}
+
+.kbd {
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid var(--gt-border);
+  border-bottom-width: 3px;
+  background: var(--gt-surface);
+}
+
+/* --- Bouton « copier » des blocs de code -----------------------------------
+   Slidev le positionne avec des utilitaires UnoCSS absents à l'export : le
+   bouton retombe dans le flux. On le réécrit ici.
+   ------------------------------------------------------------------------ */
+
+.slidev-code-wrapper {
+  position: relative;
+}
+
+.slidev-code-wrapper .slidev-code-copy {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.slidev-code-wrapper:hover .slidev-code-copy {
+  opacity: 1;
+}
+
+@media print {
+  .slidev-code-copy,
+  .slidev-code-wrapper .slidev-code-copy {
+    display: none !important;
+  }
+}
+
+.print-slide-container .slidev-code-copy,
+.print .slidev-code-copy {
+  display: none !important;
+}
