@@ -106,7 +106,7 @@ go run .
 
 Récupérez celui de la séance 1, **à la place** de votre dossier `groupie` :
 
-<div class="term mt-3"><span class="prompt">$</span> git clone -b seance-1 https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-groupie groupie</div>
+<div class="term mt-3"><span class="prompt">$</span> git clone https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-groupie groupie</div>
 
 Puis `cd groupie` et `go run .`
 
@@ -118,11 +118,8 @@ Puis `cd groupie` et `go run .`
 
 <!--
 Faire lever la main à ceux qui voient les 52 cartes. Les autres clonent le
-dépôt (tag seance-1 : le projet exact de la fin de séance 1). Ne pas
-commencer l'étape 1 tant que tout le monde n'a pas les cartes.
-
-Après le clone, git affiche "You are in 'detached HEAD' state" : c'est
-normal, ça ne gêne en rien. Ils ne font pas de commit dans ce dossier.
+dépôt (main : le projet exact de la fin de séance 1). Ne pas commencer
+l'étape 1 tant que tout le monde n'a pas les cartes.
 
 Le go.mod du dépôt demande Go 1.22 : c'est le minimum pour les adresses avec
 {id} de l'étape 1.

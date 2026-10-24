@@ -118,9 +118,10 @@ séance 1.
 ### Avant la séance 2
 
 - Le dépôt [b1-go-web-api-groupie](https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-groupie)
-  a deux points de repère : le **tag `seance-1`** (le projet de fin de séance 1,
-  pour ceux qui l'ont perdu, slide 3) et la **branche `seance-2`** (le projet de
-  fin de séance 2, slide 42).
+  sert de rattrapage : **`main`** a le projet de fin de séance 1 (pour ceux qui
+  l'ont perdu, slide 3), et la **branche `seance-2`** aura celui de fin de
+  séance 2 (slide 42), à pousser après avoir testé le cours.
+  **`main` doit rester en version séance 1** jusqu'à la séance 2.
 - L'étape 6 se teste **en coupant le Wi-Fi** : prévenir qu'on le rallume tout
   de suite après.
 
