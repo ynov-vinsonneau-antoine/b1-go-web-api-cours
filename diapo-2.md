@@ -104,9 +104,10 @@ go run .
 <div class="box trap">
 <span class="box-label">Votre projet ne marche pas, ou vous l'avez perdu ?</span>
 
-Récupérez celui de la séance 1, **à la place** de votre dossier `groupie` :
+Récupérez celui de la séance 1, **à la place** de votre dossier `groupie`.
+Il est sur la **branche `seance-1`** :
 
-<div class="term mt-3"><span class="prompt">$</span> git clone https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-groupie groupie</div>
+<div class="term mt-3"><span class="prompt">$</span> git clone -b seance-1 https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-groupie groupie</div>
 
 Puis `cd groupie` et `go run .`
 
@@ -118,8 +119,9 @@ Puis `cd groupie` et `go run .`
 
 <!--
 Faire lever la main à ceux qui voient les 52 cartes. Les autres clonent le
-dépôt (main : le projet exact de la fin de séance 1). Ne pas commencer
-l'étape 1 tant que tout le monde n'a pas les cartes.
+dépôt sur la branche seance-1 (le projet exact de la fin de séance 1). Le
+-b seance-1 du clone les place directement dessus. Ne pas commencer l'étape
+1 tant que tout le monde n'a pas les cartes.
 
 Le go.mod du dépôt demande Go 1.22 : c'est le minimum pour les adresses avec
 {id} de l'étape 1.

@@ -118,10 +118,10 @@ séance 1.
 ### Avant la séance 2
 
 - Le dépôt [b1-go-web-api-groupie](https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-groupie)
-  sert de rattrapage : **`main`** a le projet de fin de séance 1 (pour ceux qui
-  l'ont perdu, slide 3), et la **branche `seance-2`** aura celui de fin de
-  séance 2 (slide 42), à pousser après avoir testé le cours.
-  **`main` doit rester en version séance 1** jusqu'à la séance 2.
+  sert de rattrapage, une branche par séance : **`seance-1`** (le projet de
+  fin de séance 1, pour ceux qui l'ont perdu, slide 3) et **`seance-2`**
+  (celui de fin de séance 2, slide 42). Les deux sont à pousser toi-même
+  avant la séance 2.
 - L'étape 6 se teste **en coupant le Wi-Fi** : prévenir qu'on le rallume tout
   de suite après.
 
