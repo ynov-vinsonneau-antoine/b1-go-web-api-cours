@@ -1,9 +1,9 @@
 ---
 theme: default
-title: "Groupie Tracker · Séance 2 · La page d'un artiste"
+title: "Pokédex · Séance 2 · La fiche d'un Pokémon"
 info: |
-  ## Groupie Tracker · Séance 2
-  La page de chaque artiste, ses concerts, et les erreurs.
+  ## Pokédex · Séance 2
+  La fiche de chaque Pokémon, son nom en français, et les erreurs.
   Cours 4h · Bachelor 1
 class: text-center
 transition: slide-left
@@ -21,9 +21,9 @@ drawings:
 
 <div class="tag mb-6">Go · Séance 2 sur 3</div>
 
-# Groupie Tracker
+# Pokédex
 
-<p class="big">Aujourd'hui : la page de chaque artiste, avec ses concerts,<br/>et des pages d'erreur quand ça se passe mal</p>
+<p class="big">Aujourd'hui : la fiche de chaque Pokémon, avec son nom en français,<br/>et des pages d'erreur quand ça se passe mal</p>
 
 <div class="abs-br m-6 text-sm">
   <span class="kbd">→</span> avancer · <span class="kbd">d</span> thème clair / sombre
@@ -33,7 +33,7 @@ drawings:
 Même méthode qu'en séance 1 : ils recopient le code de chaque slide, lancent,
 et comparent avec la capture. Rien à inventer.
 
-On repart du dossier groupie de la séance 1. Ceux qui ne l'ont plus le
+On repart du dossier pokedex de la séance 1. Ceux qui ne l'ont plus le
 récupèrent slide 3.
 -->
 
@@ -45,20 +45,20 @@ récupèrent slide 3.
 
 <div class="col-span-3">
 <div class="browser">
-  <div class="browser-bar">localhost:8080/artiste/1</div>
+  <div class="browser-bar">localhost:8080/pokemon/1</div>
   <img src="/img/s2-etape-7.png" />
 </div>
 </div>
 
 <div class="col-span-2">
 
-On **clique sur une carte**, et on arrive sur **la page de l'artiste** :
-ses membres, son premier album, **ses concerts**.
+On **clique sur une carte**, et on arrive sur **la fiche du Pokémon** :
+sa grande image, **son nom en français**, ses types.
 
 <div class="box info mt-5">
 <span class="box-label">Et quand ça se passe mal</span>
 
-Un artiste qui n'existe pas, une API qui ne répond pas : le site affiche
+Un Pokémon qui n'existe pas, une API qui ne répond pas : le site affiche
 une **vraie page d'erreur**, au lieu d'une page vide.
 
 </div>
@@ -68,8 +68,8 @@ une **vraie page d'erreur**, au lieu d'une page vide.
 </div>
 
 <!--
-Vraie capture du site en fin de séance (Queen, /artiste/1). Le montrer en
-direct si tu as fait le projet avant.
+Vraie capture du site en fin de séance (Bulbizarre, /pokemon/1). Le montrer
+en direct si tu as fait le projet avant.
 -->
 
 ---
@@ -83,11 +83,11 @@ direct si tu as fait le projet avant.
 **1.** Lancez votre projet de la séance 1 :
 
 ```bash
-cd groupie
+cd pokedex
 go run .
 ```
 
-**2.** Ouvrez **http://localhost:8080** : vous devez voir les 52 cartes.
+**2.** Ouvrez **http://localhost:8080** : vous devez voir les 151 cartes.
 
 <div class="box info mt-6">
 <span class="box-label">La règle, toujours</span>
@@ -104,12 +104,12 @@ go run .
 <div class="box trap">
 <span class="box-label">Votre projet ne marche pas, ou vous l'avez perdu ?</span>
 
-Récupérez celui de la séance 1, **à la place** de votre dossier `groupie`.
+Récupérez celui de la séance 1, **à la place** de votre dossier `pokedex`.
 Il est sur la **branche `seance-1`** :
 
-<div class="term mt-3"><span class="prompt">$</span> git clone -b seance-1 https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-groupie groupie</div>
+<div class="term mt-3"><span class="prompt">$</span> git clone -b seance-1 https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-pokedex pokedex</div>
 
-Puis `cd groupie` et `go run .`
+Puis `cd pokedex` et `go run .`
 
 </div>
 
@@ -118,7 +118,7 @@ Puis `cd groupie` et `go run .`
 </div>
 
 <!--
-Faire lever la main à ceux qui voient les 52 cartes. Les autres clonent le
+Faire lever la main à ceux qui voient les 151 cartes. Les autres clonent le
 dépôt sur la branche seance-1 (le projet exact de la fin de séance 1). Le
 -b seance-1 du clone les place directement dessus. Ne pas commencer l'étape
 1 tant que tout le monde n'a pas les cartes.
@@ -132,26 +132,26 @@ Le go.mod du dépôt demande Go 1.22 : c'est le minimum pour les adresses avec
 # Comment ça marche
 
 <div class="flow mt-8">
-  <div class="flow-node"><b>Le navigateur</b>demande /artiste/1</div>
+  <div class="flow-node"><b>Le navigateur</b>demande /pokemon/1</div>
   <div class="flow-arrow">→</div>
-  <div class="flow-node"><b>Votre programme Go</b>demande l'artiste 1, puis ses concerts</div>
+  <div class="flow-node"><b>Votre programme Go</b>demande le Pokémon 1, puis son espèce</div>
   <div class="flow-arrow">→</div>
-  <div class="flow-node"><b>L'API</b>renvoie l'artiste, puis ses concerts</div>
+  <div class="flow-node"><b>L'API</b>renvoie le Pokémon, puis son espèce</div>
 </div>
 
 <div class="text-left mt-10">
 
-1. On clique sur Queen : le navigateur demande la page **`/artiste/1`**
-2. Go demande à l'API **l'artiste n°1**, puis **ses concerts** : deux appels
-3. Go range tout dans la page de l'artiste, et la renvoie au navigateur
+1. On clique sur Bulbasaur : le navigateur demande la page **`/pokemon/1`**
+2. Go demande à l'API **le Pokémon n° 1**, puis **son espèce** (où se trouve son nom en français) : deux appels
+3. Go range tout dans la fiche du Pokémon, et la renvoie au navigateur
 
 </div>
 
 <div class="box good mt-6 text-left">
 
 Un **endpoint**, c'est une adresse de l'API. En séance 1, on en utilisait un
-(`/api/artists`). Aujourd'hui, on en ajoute deux : **un artiste**, et **ses
-concerts**.
+(la liste). Aujourd'hui, on en ajoute deux : **un Pokémon**, et **son
+espèce**.
 
 </div>
 
@@ -165,11 +165,11 @@ l'objectif "plusieurs endpoints" du syllabus.
 # Les 7 étapes
 
 <div class="steps mt-6">
-  <div><b>1</b>Une adresse par artiste</div>
+  <div><b>1</b>Une adresse par Pokémon</div>
   <div><b>2</b>Des cartes cliquables</div>
-  <div><b>3</b>La page de l'artiste</div>
-  <div><b>4</b>Ses concerts</div>
-  <div><b>5</b>Artiste introuvable</div>
+  <div><b>3</b>La fiche du Pokémon</div>
+  <div><b>4</b>Son nom en français</div>
+  <div><b>5</b>Pokémon introuvable</div>
   <div><b>6</b>L'API en panne</div>
   <div><b>7</b>Le CSS</div>
 </div>
@@ -184,7 +184,7 @@ l'objectif "plusieurs endpoints" du syllabus.
 </div>
 
 <!--
-Étapes 1 à 4 : on construit la page. Étapes 5 et 6 : on gère ce qui peut
+Étapes 1 à 4 : on construit la fiche. Étapes 5 et 6 : on gère ce qui peut
 mal tourner. Étape 7 : la mise en forme.
 -->
 
@@ -194,23 +194,23 @@ class: text-center
 
 <div class="step-num">Étape 1</div>
 
-# Une adresse par artiste
+# Une adresse par Pokémon
 
 <div class="steps mt-6">
-  <div class="on"><b>1</b>Une adresse par artiste</div>
+  <div class="on"><b>1</b>Une adresse par Pokémon</div>
   <div><b>2</b>Des cartes cliquables</div>
-  <div><b>3</b>La page de l'artiste</div>
-  <div><b>4</b>Ses concerts</div>
-  <div><b>5</b>Artiste introuvable</div>
+  <div><b>3</b>La fiche du Pokémon</div>
+  <div><b>4</b>Son nom en français</div>
+  <div><b>5</b>Pokémon introuvable</div>
   <div><b>6</b>L'API en panne</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : <code>localhost:8080/artiste/3</code> affiche <code>Artiste 3</code></p>
+<p class="mt-8">À la fin : <code>localhost:8080/pokemon/25</code> affiche <code>Pokémon 25</code></p>
 
 ---
 
-# Ajoutez la fonction `artiste`
+# Ajoutez la fonction `fiche`
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
@@ -222,14 +222,14 @@ dans `main` :
 <div class="file">main.go</div>
 
 ```go
-func artiste(w http.ResponseWriter, r *http.Request) {
+func fiche(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	fmt.Fprint(w, "Artiste ", id)
+	fmt.Fprint(w, "Pokémon ", id)
 }
 
 func main() {
 	http.HandleFunc("/", accueil)
-	http.HandleFunc("/artiste/{id}", artiste)
+	http.HandleFunc("/pokemon/{id}", fiche)
 	http.Handle("/static/", http.FileServer(http.Dir(".")))
 ```
 
@@ -239,7 +239,7 @@ func main() {
 
 | On écrit | Ça veut dire |
 | --- | --- |
-| `"/artiste/{id}"` | toutes les adresses `/artiste/1`, `/artiste/2`… |
+| `"/pokemon/{id}"` | toutes les adresses `/pokemon/1`, `/pokemon/2`… |
 | `{id}` | la partie qui change. On l'appelle `id` |
 | `r.PathValue("id")` | lit ce qu'il y a à la place de `{id}` |
 | `fmt.Fprint(w, …)` | écrit du texte dans la page, comme le `Bonjour !` de la séance 1 |
@@ -262,13 +262,13 @@ l'adresse.
 <!--
 Le nom entre accolades et le texte de PathValue doivent être identiques :
 {id} et "id". Sinon PathValue renvoie un texte vide et la page affiche
-"Artiste " sans numéro.
+"Pokémon " sans numéro.
 
 Les adresses avec {id} existent depuis Go 1.22. Si un élève a un go.mod
-avec "go 1.21" ou moins, /artiste/3 affiche l'accueil : mettre "go 1.22"
+avec "go 1.21" ou moins, /pokemon/25 affiche l'accueil : mettre "go 1.22"
 dans go.mod.
 
-POUR TOI : "/artiste/{id}" + r.PathValue("id") ≈ @Get(':id') + @Param('id').
+POUR TOI : "/pokemon/{id}" + r.PathValue("id") ≈ @Get(':id') + @Param('id').
 -->
 
 ---
@@ -282,12 +282,12 @@ POUR TOI : "/artiste/{id}" + r.PathValue("id") ≈ @Get(':id') + @Param('id').
 On a modifié `main.go` :
 
 1. <span class="kbd">Ctrl</span> + <span class="kbd">C</span>, puis `go run .`
-2. Ouvrez **http://localhost:8080/artiste/3**
+2. Ouvrez **http://localhost:8080/pokemon/25**
 
 <div class="box info mt-6">
 <span class="box-label">Essayez</span>
 
-Remplacez `3` par `42`, puis par `abc`. Go affiche ce qu'il y a dans
+Remplacez `25` par `9999`, puis par `abc`. Go affiche ce qu'il y a dans
 l'adresse, **sans rien vérifier**. On s'en occupera à l'étape 5.
 
 </div>
@@ -300,7 +300,7 @@ l'adresse, **sans rien vérifier**. On s'en occupera à l'étape 5.
 <span class="box-label">Vous devez voir</span>
 
 <div class="browser">
-  <div class="browser-bar">localhost:8080/artiste/3</div>
+  <div class="browser-bar">localhost:8080/pokemon/25</div>
   <img src="/img/s2-etape-1.png" />
 </div>
 
@@ -314,6 +314,8 @@ l'adresse, **sans rien vérifier**. On s'en occupera à l'étape 5.
 L'accueil marche toujours sur localhost:8080 : le "/" attrape toutes les
 adresses, sauf celles qui ont leur propre ligne HandleFunc. Go choisit
 toujours la ligne la plus précise.
+
+25, c'est Pikachu : on le verra à l'étape 3.
 -->
 
 ---
@@ -325,24 +327,20 @@ class: text-center
 # Des cartes cliquables
 
 <div class="steps mt-6">
-  <div><b>1</b>Une adresse par artiste</div>
+  <div><b>1</b>Une adresse par Pokémon</div>
   <div class="on"><b>2</b>Des cartes cliquables</div>
-  <div><b>3</b>La page de l'artiste</div>
-  <div><b>4</b>Ses concerts</div>
-  <div><b>5</b>Artiste introuvable</div>
+  <div><b>3</b>La fiche du Pokémon</div>
+  <div><b>4</b>Son nom en français</div>
+  <div><b>5</b>Pokémon introuvable</div>
   <div><b>6</b>L'API en panne</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : un clic sur une carte ouvre l'adresse de l'artiste</p>
+<p class="mt-8">À la fin : un clic sur une carte ouvre l'adresse du Pokémon</p>
 
 ---
 
 # Transformez les cartes en liens
-
-<div class="grid grid-cols-2 gap-8 mt-2">
-
-<div>
 
 Dans la boucle, remplacez `<div class="carte">` par un lien `<a>`, et le
 `</div>` de la carte par `</a>` :
@@ -351,16 +349,15 @@ Dans la boucle, remplacez `<div class="carte">` par un lien `<a>`, et le
 
 ```html
 {{range .}}
-  <a class="carte" href="/artiste/{{.ID}}">
-    <img src="{{.Image}}" alt="{{.Name}}">
+  <a class="carte" href="/pokemon/{{.ID}}">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{.ID}}.png" alt="{{.Name}}">
+    <p>n° {{.ID}}</p>
     <h2>{{.Name}}</h2>
-    <p>Créé en {{.CreationDate}}</p>
-    <p>{{len .Members}} membres</p>
   </a>
 {{end}}
 ```
 
-</div>
+<div class="grid grid-cols-2 gap-8 mt-2">
 
 <div>
 
@@ -370,34 +367,35 @@ Dans `.carte`, ajoutez les deux dernières lignes :
 
 ```css
 .carte {
-  background: white;
-  border-radius: 12px;
-  padding: 1rem;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* … les 5 lignes de la séance 1 … */
   color: black;
   text-decoration: none;
 }
 ```
 
-<div class="box info mt-4">
-
-`{{.ID}}` : le numéro de l'artiste. Il est dans la struct depuis la
-séance 1. Queen a le numéro 1 : sa carte mène à `/artiste/1`.
-
 </div>
+
+<div class="box info">
+
+`{{.ID}}` : le numéro du Pokémon, celui de la séance 1. Bulbasaur a le
+numéro 1 : sa carte mène à `/pokemon/1`.
 
 </div>
 
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.6rem !important; }
+h1 { margin-bottom: 0.3rem; }
+.slidev-layout pre.slidev-code { font-size: 0.58rem !important; }
 </style>
 
 <!--
+Seules la 2e et l'avant-dernière ligne changent : l'image, le numéro et le
+nom restent les mêmes.
+
 Sans les deux lignes CSS, tout le texte des cartes devient bleu et souligné,
-comme n'importe quel lien.
+comme n'importe quel lien. Le commentaire du CSS veut dire : on garde les
+lignes déjà là (background, border-radius, padding, text-align, box-shadow).
 
 On n'a touché ni à main.go ni à la struct : F5 suffit.
 -->
@@ -412,12 +410,12 @@ On n'a touché ni à main.go ni à la struct : F5 suffit.
 
 On n'a modifié que le HTML et le CSS : <span class="kbd">F5</span> suffit.
 
-Sur l'accueil, **cliquez sur Queen**, la première carte.
+Sur l'accueil, **cliquez sur Bulbasaur**, la première carte.
 
 <div class="box info mt-6">
 
 Le curseur devient une main sur les cartes. Après le clic, l'adresse est
-**`localhost:8080/artiste/1`**.
+**`localhost:8080/pokemon/1`**.
 
 </div>
 
@@ -429,7 +427,7 @@ Le curseur devient une main sur les cartes. Après le clic, l'adresse est
 <span class="box-label">Vous devez voir</span>
 
 <div class="browser">
-  <div class="browser-bar">localhost:8080/artiste/1</div>
+  <div class="browser-bar">localhost:8080/pokemon/1</div>
   <img src="/img/s2-etape-2.png" />
 </div>
 
@@ -441,7 +439,7 @@ Le curseur devient une main sur les cartes. Après le clic, l'adresse est
 
 <!--
 Si le clic ramène sur l'accueil : l'adresse du lien et celle du HandleFunc ne
-sont pas les mêmes (/artiste/ des deux côtés, sans s).
+sont pas les mêmes (/pokemon/ des deux côtés, sans s, sans accent).
 -->
 
 ---
@@ -450,23 +448,23 @@ class: text-center
 
 <div class="step-num">Étape 3</div>
 
-# La page de l'artiste
+# La fiche du Pokémon
 
 <div class="steps mt-6">
-  <div><b>1</b>Une adresse par artiste</div>
+  <div><b>1</b>Une adresse par Pokémon</div>
   <div><b>2</b>Des cartes cliquables</div>
-  <div class="on"><b>3</b>La page de l'artiste</div>
-  <div><b>4</b>Ses concerts</div>
-  <div><b>5</b>Artiste introuvable</div>
+  <div class="on"><b>3</b>La fiche du Pokémon</div>
+  <div><b>4</b>Son nom en français</div>
+  <div><b>5</b>Pokémon introuvable</div>
   <div><b>6</b>L'API en panne</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : la page de l'artiste affiche sa photo, son nom, son premier album et ses membres</p>
+<p class="mt-8">À la fin : la fiche affiche la grande image, le numéro, le nom et les types du Pokémon</p>
 
 ---
 
-# Regardez un artiste dans l'API
+# Regardez un Pokémon dans l'API
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
@@ -474,15 +472,15 @@ class: text-center
 
 Ouvrez cette adresse dans un nouvel onglet :
 
-<p class="big"><a href="https://groupietrackers.herokuapp.com/api/artists/1">groupietrackers.herokuapp.com/api/artists/1</a></p>
+<p class="big"><a href="https://pokeapi.co/api/v2/pokemon/1">pokeapi.co/api/v2/pokemon/1</a></p>
 
-La même adresse que la liste, **avec le numéro au bout**. Cette fois, il n'y
-a **qu'un seul artiste** : pas de `[ … ]`, directement `{ … }`.
+**Un seul Pokémon**, avec beaucoup d'informations : la réponse est très
+longue. On prend **`id`**, **`name`** et **`types`**.
 
 <div class="box info mt-4">
 
-Un artiste a le même format que dans la liste : notre struct `Artist` sait
-déjà le lire.
+Dans `types`, chaque élément contient un objet **`type`**, qui contient le
+**`name`** : des objets **dans** des objets.
 
 </div>
 
@@ -493,11 +491,18 @@ déjà le lire.
 ```json
 {
   "id": 1,
-  "image": "https://groupietrackers…/queen.jpeg",
-  "name": "Queen",
-  "members": ["Freddie Mercury", "Brian May", …],
-  "creationDate": 1970,
-  "firstAlbum": "14-12-1973",
+  "name": "bulbasaur",
+  …
+  "types": [
+    {
+      "slot": 1,
+      "type": { "name": "grass", "url": "…" }
+    },
+    {
+      "slot": 2,
+      "type": { "name": "poison", "url": "…" }
+    }
+  ],
   …
 }
 ```
@@ -506,66 +511,63 @@ déjà le lire.
 
 </div>
 
+<style>
+.slidev-layout pre.slidev-code { font-size: 0.62rem !important; }
+</style>
+
 <!--
-firstAlbum est un texte ("14-12-1973"), pas une date. On l'affiche tel quel.
+Firefox : replier "moves" (des centaines de lignes) pour trouver "types" plus
+vite. Ou utiliser le filtre de la vue JSON.
+
+Essayer aussi pokeapi.co/api/v2/pokemon/pikachu : l'API accepte le numéro
+ou le nom anglais.
 -->
 
 ---
 
-# Ajoutez `firstAlbum`, puis `getArtist`
+# Décrivez un Pokémon en Go
 
-<div class="grid grid-cols-2 gap-6 mt-2">
+<div class="grid grid-cols-2 gap-8 mt-2">
 
 <div>
 
-**1.** Dans la struct `Artist`, ajoutez la dernière ligne :
+Remplacez la struct `Pokemon`, et ajoutez `Nom` et `Type` **au-dessus** :
 
 <div class="file">main.go</div>
 
 ```go
-type Artist struct {
-	ID           int      `json:"id"`
-	Name         string   `json:"name"`
-	Image        string   `json:"image"`
-	CreationDate int      `json:"creationDate"`
-	Members      []string `json:"members"`
-	FirstAlbum   string   `json:"firstAlbum"`
+type Nom struct {
+	Name string `json:"name"`
+}
+
+type Type struct {
+	Type Nom `json:"type"`
+}
+
+type Pokemon struct {
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Types []Type `json:"types"`
 }
 ```
+
+</div>
+
+<div>
+
+On décrit le JSON **tel qu'il est**, de l'intérieur vers l'extérieur :
+
+| On écrit | Ça veut dire |
+| --- | --- |
+| `Nom` | un objet qui n'a qu'un `name` |
+| `Type` | un élément de `types` : il contient un `type`, qui est un `Nom` |
+| `Types []Type` | la liste des types du Pokémon |
+| `ID … json:"id"` | cette fois, **l'API donne** le numéro |
 
 <div class="box trap mt-4">
 
-Déjà ajoutée au bonus de la séance 1 ? Ne la remettez pas.
-
-</div>
-
-</div>
-
-<div>
-
-**2.** Sous `getArtists`, ajoutez :
-
-<div class="file">main.go</div>
-
-```go
-func getArtist(id string) Artist {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + id)
-	if err != nil {
-		fmt.Println("Erreur :", err)
-		return Artist{}
-	}
-	defer resp.Body.Close()
-
-	var artist Artist
-	json.NewDecoder(resp.Body).Decode(&artist)
-	return artist
-}
-```
-
-<div class="box info mt-4">
-
-C'est `getArtists` **sans le s** : l'adresse finit par `+ id`, et on
-renvoie **un seul** `Artist`.
+`ListePokemon` et la boucle de la séance 1 **ne changent pas** : dans la
+liste, il n'y a toujours pas d'`id`.
 
 </div>
 
@@ -574,29 +576,82 @@ renvoie **un seul** `Artist`.
 </div>
 
 <style>
-h1 { margin-bottom: 0.3rem; }
-.slidev-layout pre.slidev-code { font-size: 0.5rem !important; }
+.slidev-layout pre.slidev-code { font-size: 0.6rem !important; }
 </style>
 
 <!--
-Faire comparer getArtists et getArtist côte à côte : trois différences
-seulement (le nom, l'adresse + id, Artist au lieu de []Artist).
+Le seul vrai nouveau concept de l'étape : une struct dans une struct, comme
+un objet dans un objet en JSON. Montrer la slide précédente en parallèle.
 
-Artist{} : un artiste vide, renvoyé si l'API est injoignable.
+Nom resservira à l'étape 4 : la langue d'une traduction est aussi un objet
+avec un seul "name".
 
-Le / à la fin de "…/api/artists/" est indispensable : sans lui, l'adresse
-devient …/api/artists1.
+POUR TOI : ≈ des interfaces TS imbriquées.
 -->
 
 ---
 
-# Créez `templates/artiste.html`
+# La fonction `getPokemon`
 
 <div class="grid grid-cols-5 gap-8 mt-2">
 
 <div class="col-span-3">
 
-<div class="file">templates/artiste.html</div>
+Sous `getPokemons`, ajoutez :
+
+<div class="file">main.go</div>
+
+```go
+func getPokemon(id string) Pokemon {
+	resp, err := http.Get("https://pokeapi.co/api/v2/pokemon/" + id)
+	if err != nil {
+		fmt.Println("Erreur :", err)
+		return Pokemon{}
+	}
+	defer resp.Body.Close()
+
+	var pokemon Pokemon
+	json.NewDecoder(resp.Body).Decode(&pokemon)
+	return pokemon
+}
+```
+
+</div>
+
+<div class="col-span-2">
+
+C'est `getPokemons` **sans le s** :
+
+- l'adresse finit par **`+ id`**
+- on renvoie **un seul** `Pokemon`
+- pas de boucle : le numéro est **dans la réponse**
+
+<div class="box info mt-4">
+
+`Pokemon{}` : un Pokémon vide, renvoyé si l'API est injoignable.
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+.slidev-layout pre.slidev-code { font-size: 0.6rem !important; }
+</style>
+
+<!--
+Faire comparer getPokemons et getPokemon côte à côte.
+
+Le / à la fin de "…/api/v2/pokemon/" est indispensable : sans lui, l'adresse
+devient …/api/v2/pokemon1.
+-->
+
+---
+
+# Créez `templates/fiche.html`
+
+<div class="file">templates/fiche.html</div>
 
 ```html
 <!DOCTYPE html>
@@ -609,16 +664,15 @@ devient …/api/artists1.
 <body>
   <a href="/">← Retour</a>
   <div class="fiche">
-    <img src="{{.Image}}" alt="{{.Name}}">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{.ID}}.png" alt="{{.Name}}">
     <div>
+      <p>n° {{.ID}}</p>
       <h1>{{.Name}}</h1>
-      <p>Créé en {{.CreationDate}}</p>
-      <p>Premier album : {{.FirstAlbum}}</p>
 
-      <h2>Membres</h2>
-      <ul>
-        {{range .Members}}
-          <li>{{.}}</li>
+      <h2>Types</h2>
+      <ul class="types">
+        {{range .Types}}
+          <li>{{.Type.Name}}</li>
         {{end}}
       </ul>
     </div>
@@ -627,49 +681,34 @@ devient …/api/artists1.
 </html>
 ```
 
-</div>
+<div class="box info mt-1">
 
-<div class="col-span-2">
-
-À côté de `index.html`, dans le dossier `templates`.
-
-| On écrit | Ça affiche |
-| --- | --- |
-| `{{.Name}}` | le nom de l'artiste |
-| `{{range .Members}}` | pour **chaque membre**… |
-| `{{.}}` | …son nom |
-
-<div class="box info mt-4">
-
-Dans la boucle, le point `.` est **le membre en cours**.
-
-</div>
-
-<div class="box good mt-4">
-
-La classe `fiche` servira au CSS, à l'étape 7.
-
-</div>
-
-</div>
+À côté de `index.html`. **`…/official-artwork/{{.ID}}.png`** : la grande image. **`{{range .Types}}`** : pour chaque type… **`{{.Type.Name}}`** : …son nom.
 
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.5rem !important; line-height: 1.38 !important; }
+h1 { margin-bottom: 0.2rem; }
+.slidev-layout pre.slidev-code { font-size: 0.46rem !important; line-height: 1.3 !important; }
 </style>
 
 <!--
 Copier-coller autorisé pour ce fichier si la salle est en retard : la
-structure du head est la même que index.html.
+structure du head est la même que index.html. L'adresse de l'image surtout :
+elle est longue.
+
+{{.Type.Name}} : dans la boucle, le point est un Type ; .Type est son Nom ;
+.Name est le texte. On suit le JSON.
 
 La flèche de "← Retour" est difficile à taper : écrire simplement "Retour"
 convient très bien.
+
+Les classes fiche et types serviront au CSS, à l'étape 7.
 -->
 
 ---
 
-# Remplacez la fonction `artiste`
+# Remplacez la fonction `fiche`
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
@@ -678,19 +717,19 @@ convient très bien.
 <div class="file">main.go</div>
 
 ```go
-func artiste(w http.ResponseWriter, r *http.Request) {
+func fiche(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	artist := getArtist(id)
+	pokemon := getPokemon(id)
 
-	tmpl := template.Must(template.ParseFiles("templates/artiste.html"))
-	tmpl.Execute(w, artist)
+	tmpl := template.Must(template.ParseFiles("templates/fiche.html"))
+	tmpl.Execute(w, pokemon)
 }
 ```
 
 <div class="box info mt-4">
 
-Comme `accueil`, mais avec **un seul artiste** et le template
-`artiste.html`.
+Comme `accueil`, mais avec **un seul Pokémon** et le template
+`fiche.html`.
 
 </div>
 
@@ -702,7 +741,7 @@ Comme `accueil`, mais avec **un seul artiste** et le template
 <span class="box-label">Vous devez voir, après Ctrl + C, go run . et F5</span>
 
 <div class="browser">
-  <div class="browser-bar">localhost:8080/artiste/1</div>
+  <div class="browser-bar">localhost:8080/pokemon/1</div>
   <img src="/img/s2-etape-3.png" />
 </div>
 
@@ -717,11 +756,14 @@ Comme `accueil`, mais avec **un seul artiste** et le template
 </style>
 
 <!--
-Le nom au centre et la photo au-dessus : c'est normal, pas encore de CSS
+La photo au-dessus et le nom au centre : c'est normal, pas encore de CSS
 pour cette page.
 
-Si le nom, l'année ou l'album sont vides : la struct (majuscule et
-json:"…"), ou le / à la fin de l'adresse dans getArtist.
+Essayer /pokemon/25 (Pikachu) et /pokemon/pikachu : les deux marchent,
+l'API accepte le nom anglais.
+
+Si le nom ou les types sont vides : la struct (majuscule et json:"…"), ou
+le / à la fin de l'adresse dans getPokemon.
 -->
 
 ---
@@ -730,7 +772,7 @@ layout: center
 
 # Pause · 10 minutes
 
-<p class="big">Au retour : les concerts de chaque artiste.</p>
+<p class="big">Au retour : le nom de chaque Pokémon en français.</p>
 
 ---
 class: text-center
@@ -738,23 +780,23 @@ class: text-center
 
 <div class="step-num">Étape 4</div>
 
-# Ses concerts
+# Son nom en français
 
 <div class="steps mt-6">
-  <div><b>1</b>Une adresse par artiste</div>
+  <div><b>1</b>Une adresse par Pokémon</div>
   <div><b>2</b>Des cartes cliquables</div>
-  <div><b>3</b>La page de l'artiste</div>
-  <div class="on"><b>4</b>Ses concerts</div>
-  <div><b>5</b>Artiste introuvable</div>
+  <div><b>3</b>La fiche du Pokémon</div>
+  <div class="on"><b>4</b>Son nom en français</div>
+  <div><b>5</b>Pokémon introuvable</div>
   <div><b>6</b>L'API en panne</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : la page de l'artiste affiche la liste de ses concerts, avec les lieux et les dates</p>
+<p class="mt-8">À la fin : la fiche affiche <b>Bulbizarre</b>, et plus seulement bulbasaur</p>
 
 ---
 
-# Regardez les concerts dans l'API
+# Regardez l'espèce dans l'API
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
@@ -762,15 +804,15 @@ class: text-center
 
 Ouvrez cette adresse dans un nouvel onglet :
 
-<p class="big"><a href="https://groupietrackers.herokuapp.com/api/relation/1">groupietrackers.herokuapp.com/api/relation/1</a></p>
+<p class="big"><a href="https://pokeapi.co/api/v2/pokemon-species/1">pokeapi.co/api/v2/pokemon-species/1</a></p>
 
-Les concerts de l'artiste n°1. Dans **`datesLocations`** : pour chaque
-**lieu**, la liste de ses **dates**.
+L'**espèce** du Pokémon n° 1. Dans **`names`** : son nom **dans chaque
+langue**. La langue est dans `language`, et le français s'écrit **`fr`**.
 
 <div class="box info mt-4">
 
-C'est un **autre endpoint** : pour afficher la page d'un artiste, Go va
-maintenant appeler l'API **deux fois**.
+C'est un **autre endpoint** : pour afficher la fiche, Go va maintenant
+appeler l'API **deux fois**.
 
 </div>
 
@@ -781,13 +823,19 @@ maintenant appeler l'API **deux fois**.
 ```json
 {
   "id": 1,
-  "datesLocations": {
-    "dunedin-new_zealand": ["10-02-2020"],
-    "georgia-usa": ["22-08-2019"],
-    "los_angeles-usa": ["20-08-2019"],
-    "nagoya-japan": ["30-01-2019"],
+  "names": [
     …
-  }
+    {
+      "language": { "name": "fr", "url": "…" },
+      "name": "Bulbizarre"
+    },
+    {
+      "language": { "name": "de", "url": "…" },
+      "name": "Bisasam"
+    },
+    …
+  ],
+  …
 }
 ```
 
@@ -795,63 +843,69 @@ maintenant appeler l'API **deux fois**.
 
 </div>
 
+<style>
+.slidev-layout pre.slidev-code { font-size: 0.62rem !important; }
+</style>
+
 <!--
-"relation" : l'API relie les lieux et les dates. Il existe aussi /locations
-et /dates séparés, mais relation donne les deux d'un coup : c'est le plus
-simple.
+L'API sépare le Pokémon (ses combats : types, stats…) et son espèce (son
+nom dans chaque langue, sa description…).
+
+Le français n'est pas le premier de la liste (il y a d'abord le japonais,
+le coréen…) : il faudra le chercher. C'est l'objet de la slide d'après.
 -->
 
 ---
 
-# Décrivez les concerts en Go
+# Décrivez l'espèce en Go
 
 <div class="grid grid-cols-5 gap-6 mt-2">
 
 <div class="col-span-2">
 
-**1.** Sous la struct `Artist`, ajoutez :
+**1.** Sous `ListePokemon`, ajoutez :
 
 <div class="file">main.go</div>
 
 ```go
-type Relation struct {
-	DatesLocations map[string][]string `json:"datesLocations"`
+type Traduction struct {
+	Name     string `json:"name"`
+	Language Nom    `json:"language"`
+}
+
+type Espece struct {
+	Names []Traduction `json:"names"`
 }
 ```
 
-| Dans `map[string][]string` | Veut dire |
-| --- | --- |
-| `map` | un dictionnaire : une **clé** → une **valeur** |
-| `[string]` | la clé : le **lieu** |
-| `[]string` | la valeur : la **liste des dates** |
+`Language` est un `Nom` : on réutilise la struct de l'étape 3.
 
 </div>
 
 <div class="col-span-3">
 
-**2.** Sous `getArtist`, ajoutez :
+**2.** Sous `getPokemon`, ajoutez :
 
 <div class="file">main.go</div>
 
 ```go
-func getConcerts(id string) map[string][]string {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/relation/" + id)
+func getEspece(id string) Espece {
+	resp, err := http.Get("https://pokeapi.co/api/v2/pokemon-species/" + id)
 	if err != nil {
 		fmt.Println("Erreur :", err)
-		return nil
+		return Espece{}
 	}
 	defer resp.Body.Close()
 
-	var relation Relation
-	json.NewDecoder(resp.Body).Decode(&relation)
-	return relation.DatesLocations
+	var espece Espece
+	json.NewDecoder(resp.Body).Decode(&espece)
+	return espece
 }
 ```
 
 <div class="box info mt-4">
 
-Encore la même forme. On ne garde que **`DatesLocations`** : c'est ce qu'on
-affiche.
+Encore la même forme. Seuls l'adresse et le type changent.
 
 </div>
 
@@ -860,17 +914,67 @@ affiche.
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.5rem !important; }
+.slidev-layout pre.slidev-code { font-size: 0.52rem !important; }
 </style>
 
 <!--
-Ils ont vu les maps en Go. Le rappeler en une phrase : comme un dictionnaire,
-on cherche une clé, on trouve une valeur.
-
-À ce stade, getArtists, getArtist et getConcerts se ressemblent beaucoup :
+À ce stade, getPokemons, getPokemon et getEspece se ressemblent beaucoup :
 le faire remarquer. On les regroupera à l'étape 6.
 
-POUR TOI : map[string][]string ≈ Record<string, string[]>.
+Espece sans accent : un nom Go ne doit pas contenir d'accent (c'est permis,
+mais on évite).
+-->
+
+---
+
+# Trouvez le nom en français
+
+<div class="grid grid-cols-2 gap-8 mt-2">
+
+<div>
+
+Sous `getEspece`, ajoutez :
+
+<div class="file">main.go</div>
+
+```go
+func nomFrancais(espece Espece) string {
+	for _, traduction := range espece.Names {
+		if traduction.Language.Name == "fr" {
+			return traduction.Name
+		}
+	}
+	return ""
+}
+```
+
+</div>
+
+<div>
+
+| On écrit | Ça veut dire |
+| --- | --- |
+| `for _, traduction := range espece.Names` | pour chaque traduction du nom… |
+| `if traduction.Language.Name == "fr"` | …si sa langue est le français… |
+| `return traduction.Name` | …on renvoie ce nom, et on s'arrête |
+| `return ""` | aucune traduction française : un texte vide |
+
+</div>
+
+</div>
+
+<style>
+.slidev-layout pre.slidev-code { font-size: 0.6rem !important; }
+</style>
+
+<!--
+Le _ : range donne la position et l'élément. On n'a pas besoin de la
+position, on la jette avec _.
+
+traduction.Language.Name : on suit le JSON, comme {{.Type.Name}} dans le
+template.
+
+POUR TOI : ≈ espece.names.find(t => t.language.name === "fr")?.name ?? "".
 -->
 
 ---
@@ -881,14 +985,14 @@ POUR TOI : map[string][]string ≈ Record<string, string[]>.
 
 <div>
 
-**1.** Sous la struct `Relation`, ajoutez :
+**1.** Sous la struct `Espece`, ajoutez :
 
 <div class="file">main.go</div>
 
 ```go
-type PageArtiste struct {
-	Artist   Artist
-	Concerts map[string][]string
+type PagePokemon struct {
+	Pokemon Pokemon
+	NomFr   string
 }
 ```
 
@@ -903,27 +1007,27 @@ range dans une struct, et on envoie la struct.
 
 <div>
 
-**2.** Remplacez la fonction `artiste` :
+**2.** Remplacez la fonction `fiche` :
 
 <div class="file">main.go</div>
 
 ```go
-func artiste(w http.ResponseWriter, r *http.Request) {
+func fiche(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	page := PageArtiste{
-		Artist:   getArtist(id),
-		Concerts: getConcerts(id),
+	page := PagePokemon{
+		Pokemon: getPokemon(id),
+		NomFr:   nomFrancais(getEspece(id)),
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/artiste.html"))
+	tmpl := template.Must(template.ParseFiles("templates/fiche.html"))
 	tmpl.Execute(w, page)
 }
 ```
 
 <div class="box trap mt-4">
 
-Dans le HTML, le point `.` est maintenant **la `PageArtiste`** : le nom
-devient `.Artist.Name`. On met à jour `artiste.html` juste après.
+Dans le HTML, le point `.` est maintenant **la `PagePokemon`** : le numéro
+devient `.Pokemon.ID`. On met à jour `fiche.html` juste après.
 
 </div>
 
@@ -936,50 +1040,42 @@ devient `.Artist.Name`. On met à jour `artiste.html` juste après.
 </style>
 
 <!--
-PageArtiste = "tout ce dont la page a besoin". Le même principe servira pour
+PagePokemon = "tout ce dont la page a besoin". Le même principe servira pour
 toute page qui affiche plusieurs choses.
+
+nomFrancais(getEspece(id)) : on appelle l'API, puis on cherche le nom
+français dans la réponse.
 
 POUR TOI : ≈ un DTO de vue / les props d'une page.
 -->
 
 ---
 
-# Remplacez tout le contenu de `artiste.html`
+# Remplacez tout le contenu de `fiche.html`
 
-<div class="grid grid-cols-5 gap-8 mt-2">
-
-<div class="col-span-3">
-
-<div class="file">templates/artiste.html</div>
+<div class="file">templates/fiche.html</div>
 
 ```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>{{.Artist.Name}}</title>
+  <title>{{.NomFr}}</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
   <a href="/">← Retour</a>
   <div class="fiche">
-    <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{.Pokemon.ID}}.png" alt="{{.NomFr}}">
     <div>
-      <h1>{{.Artist.Name}}</h1>
-      <p>Créé en {{.Artist.CreationDate}}</p>
-      <p>Premier album : {{.Artist.FirstAlbum}}</p>
+      <p>n° {{.Pokemon.ID}}</p>
+      <h1>{{.NomFr}}</h1>
+      <p>En anglais : {{.Pokemon.Name}}</p>
 
-      <h2>Membres</h2>
-      <ul>
-        {{range .Artist.Members}}
-          <li>{{.}}</li>
-        {{end}}
-      </ul>
-
-      <h2>Concerts</h2>
-      <ul>
-        {{range $lieu, $dates := .Concerts}}
-          <li>{{$lieu}} : {{range $dates}}{{.}} {{end}}</li>
+      <h2>Types</h2>
+      <ul class="types">
+        {{range .Pokemon.Types}}
+          <li>{{.Type.Name}}</li>
         {{end}}
       </ul>
     </div>
@@ -988,35 +1084,23 @@ POUR TOI : ≈ un DTO de vue / les props d'une page.
 </html>
 ```
 
-</div>
+<div class="box info mt-1">
 
-<div class="col-span-2">
-
-Partout, `.Artist.` devant les infos de l'artiste. Puis le bloc
-**Concerts**, à la fin :
-
-| On écrit | Ça veut dire |
-| --- | --- |
-| `{{range $lieu, $dates := .Concerts}}` | pour chaque concert… |
-| `$lieu` | …le lieu (la clé) |
-| `$dates` | …ses dates (la valeur) |
-| `{{range $dates}}{{.}} {{end}}` | écrit chaque date |
-
-</div>
+Partout, **`.Pokemon.`** devant les infos du Pokémon. **`{{.NomFr}}`** : le nom français, dans le titre, le `<h1>` et le `alt`.
 
 </div>
 
 <style>
-h1 { margin-bottom: 0.3rem; }
-.slidev-layout pre.slidev-code { font-size: 0.46rem !important; line-height: 1.26 !important; }
+h1 { margin-bottom: 0.2rem; }
+.slidev-layout pre.slidev-code { font-size: 0.44rem !important; line-height: 1.28 !important; }
 </style>
 
 <!--
-$lieu et $dates : des variables du template. Le $ est obligatoire. On en a
-besoin parce qu'une map a deux choses par élément : la clé et la valeur.
+Copier-coller autorisé si la salle est en retard : seuls les .Pokemon. et le
+nom français sont nouveaux.
 
-Copier-coller autorisé si la salle est en retard : seul le bloc Concerts est
-nouveau.
+Dans {{range .Pokemon.Types}}, le point redevient le type en cours :
+{{.Type.Name}} ne change pas.
 -->
 
 ---
@@ -1031,14 +1115,14 @@ On a modifié `main.go` :
 
 1. <span class="kbd">Ctrl</span> + <span class="kbd">C</span>
 2. `go run .`
-3. <span class="kbd">F5</span> sur `localhost:8080/artiste/1`
+3. <span class="kbd">F5</span> sur `localhost:8080/pokemon/1`
 
-Sous les membres, la liste des concerts.
+Le nom français, et le nom anglais en dessous.
 
 <div class="box info mt-4">
+<span class="box-label">Essayez</span>
 
-Les lieux sont écrits comme dans l'API : `los_angeles-usa`. On les rendra
-lisibles en séance 3.
+`/pokemon/4` : Salamèche. `/pokemon/7` : Carapuce.
 
 </div>
 
@@ -1047,10 +1131,10 @@ lisibles en séance 3.
 <div class="col-span-3">
 
 <div class="box good">
-<span class="box-label">Vous devez voir, en bas de la page</span>
+<span class="box-label">Vous devez voir, sous l'image</span>
 
 <div class="browser">
-  <div class="browser-bar">localhost:8080/artiste/1</div>
+  <div class="browser-bar">localhost:8080/pokemon/1</div>
   <img src="/img/s2-etape-4.png" />
 </div>
 
@@ -1061,14 +1145,12 @@ lisibles en séance 3.
 </div>
 
 <!--
-Les lieux sont dans l'ordre alphabétique : le template trie tout seul les
-clés d'une map.
+Page blanche, ou qui s'arrête au milieu : il reste un {{.ID}} ou un
+{{.Name}} sans .Pokemon devant dans fiche.html. Le terminal n'affiche rien,
+la page s'arrête juste à cet endroit.
 
-Page blanche : il reste un {{.Name}} sans .Artist devant dans artiste.html.
-Le terminal n'affiche rien, la page s'arrête juste à cet endroit.
-
-Pas de concerts : json:"datesLocations" mal écrit, ou le / à la fin de
-l'adresse dans getConcerts.
+Pas de nom français : json:"names" ou json:"language" mal écrit, le "fr" en
+majuscules, ou le / à la fin de l'adresse dans getEspece.
 -->
 
 ---
@@ -1077,40 +1159,38 @@ class: text-center
 
 <div class="step-num">Étape 5</div>
 
-# Artiste introuvable
+# Pokémon introuvable
 
 <div class="steps mt-6">
-  <div><b>1</b>Une adresse par artiste</div>
+  <div><b>1</b>Une adresse par Pokémon</div>
   <div><b>2</b>Des cartes cliquables</div>
-  <div><b>3</b>La page de l'artiste</div>
-  <div><b>4</b>Ses concerts</div>
-  <div class="on"><b>5</b>Artiste introuvable</div>
+  <div><b>3</b>La fiche du Pokémon</div>
+  <div><b>4</b>Son nom en français</div>
+  <div class="on"><b>5</b>Pokémon introuvable</div>
   <div><b>6</b>L'API en panne</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : <code>/artiste/999</code> affiche une page d'erreur, avec le code 404</p>
+<p class="mt-8">À la fin : <code>/pokemon/9999</code> affiche une page d'erreur, avec le code 404</p>
 
 ---
 
-# Essayez un artiste qui n'existe pas
+# Essayez un Pokémon qui n'existe pas
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
 <div>
 
-**1.** Ouvrez **localhost:8080/artiste/999**
+**1.** Ouvrez **localhost:8080/pokemon/9999**
 
-Une page avec un nom vide et `Créé en 0`.
+Une fiche vide : `n° 0`, pas de nom, une image cassée.
 
-**2.** Regardez ce que répond l'API : [groupietrackers.herokuapp.com/api/artists/999](https://groupietrackers.herokuapp.com/api/artists/999)
+**2.** Regardez ce que répond l'API : [pokeapi.co/api/v2/pokemon/9999](https://pokeapi.co/api/v2/pokemon/9999)
 
 ```json
 {
-  "id": 0,
-  "name": "",
-  "creationDate": 0,
-  …
+  "status": 404,
+  "message": "Not Found"
 }
 ```
 
@@ -1121,8 +1201,9 @@ Une page avec un nom vide et `Créé en 0`.
 <div class="box bad">
 <span class="box-label">Le problème</span>
 
-L'API ne dit pas « introuvable » : elle renvoie **un artiste vide, avec
-l'`id` 0**. C'est à nous de le repérer.
+L'API répond bien « introuvable », mais **notre code ne regarde pas** : il
+lit la réponse comme un Pokémon. Pas d'`id`, pas de `name` : le Pokémon
+reste **vide, avec l'`ID` 0**. C'est à nous de le repérer.
 
 </div>
 
@@ -1141,11 +1222,14 @@ On va renvoyer une page d'erreur, avec le code 404.
 </div>
 
 <!--
-C'est une bizarrerie de cette API : une API bien faite répondrait 404. Le
-dire : "on ne choisit pas les API qu'on consomme, on fait avec".
+Le 404 de l'API se voit dans F12 > Réseau, sur l'onglet de l'API. Notre site,
+lui, répond encore 200 avec une fiche vide.
 
-/artiste/abc donne la même chose : l'API renvoie aussi un artiste vide. Le
-même test réglera les deux cas.
+/pokemon/abc donne la même chose : l'API répond aussi 404. Le même test
+réglera les deux cas.
+
+On regardera le code de l'API lui-même à l'étape 6, quand on regroupera les
+appels.
 -->
 
 ---
@@ -1203,7 +1287,7 @@ simple texte.
 
 <!--
 Le dossier templates contient maintenant trois fichiers : index.html,
-artiste.html, erreur.html.
+fiche.html, erreur.html.
 -->
 
 ---
@@ -1259,31 +1343,31 @@ POUR TOI : w.WriteHeader(404) ≈ res.status(404).
 
 ---
 
-# Vérifiez l'artiste dans `artiste`
+# Vérifiez le Pokémon dans `fiche`
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
 <div>
 
-Remplacez la fonction `artiste` :
+Remplacez la fonction `fiche` :
 
 <div class="file">main.go</div>
 
 ```go
-func artiste(w http.ResponseWriter, r *http.Request) {
+func fiche(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	artist := getArtist(id)
-	if artist.ID == 0 {
-		erreur(w, 404, "Cet artiste n'existe pas.")
+	pokemon := getPokemon(id)
+	if pokemon.ID == 0 {
+		erreur(w, 404, "Ce Pokémon n'existe pas.")
 		return
 	}
 
-	page := PageArtiste{
-		Artist:   artist,
-		Concerts: getConcerts(id),
+	page := PagePokemon{
+		Pokemon: pokemon,
+		NomFr:   nomFrancais(getEspece(id)),
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/artiste.html"))
+	tmpl := template.Must(template.ParseFiles("templates/fiche.html"))
 	tmpl.Execute(w, page)
 }
 ```
@@ -1292,13 +1376,13 @@ func artiste(w http.ResponseWriter, r *http.Request) {
 
 <div>
 
-**`artist := getArtist(id)`** : on récupère l'artiste **avant** de faire la
-page, pour pouvoir le vérifier.
+**`pokemon := getPokemon(id)`** : on récupère le Pokémon **avant** de faire
+la page, pour pouvoir le vérifier.
 
-**`if artist.ID == 0`** : l'API a renvoyé un artiste vide, il n'existe pas.
+**`if pokemon.ID == 0`** : le Pokémon est vide, il n'existe pas.
 
 **`return`** : on arrête la fonction ici. Sans lui, Go continuerait et
-ajouterait la page de l'artiste sous la page d'erreur.
+ajouterait la fiche vide sous la page d'erreur.
 
 </div>
 
@@ -1310,7 +1394,10 @@ ajouterait la page de l'artiste sous la page d'erreur.
 
 <!--
 L'oubli du return est l'erreur classique : la page d'erreur s'affiche, puis
-la page artiste vide en dessous.
+la fiche vide en dessous.
+
+Bonus de ce test : si le Pokémon n'existe pas, on n'appelle même pas l'API
+pour son espèce.
 -->
 
 ---
@@ -1338,7 +1425,7 @@ func introuvable(w http.ResponseWriter, r *http.Request) {
 ```go
 func main() {
 	http.HandleFunc("/{$}", accueil)
-	http.HandleFunc("/artiste/{id}", artiste)
+	http.HandleFunc("/pokemon/{id}", fiche)
 	http.HandleFunc("/", introuvable)
 	http.Handle("/static/", http.FileServer(http.Dir(".")))
 ```
@@ -1351,7 +1438,7 @@ func main() {
 <span class="box-label">Pourquoi</span>
 
 Avec `"/"`, l'accueil s'affiche pour **toutes** les adresses :
-`/nimportequoi` montre les 52 artistes.
+`/nimportequoi` montre les 151 Pokémon.
 
 </div>
 
@@ -1374,8 +1461,10 @@ programme s'arrête au lancement :
   panic: pattern "/" (...) conflicts with pattern "/" (...)
 → la première ligne doit devenir "/{$}".
 
-/static/ et /artiste/{id} gardent leur propre ligne : Go choisit toujours
+/static/ et /pokemon/{id} gardent leur propre ligne : Go choisit toujours
 la plus précise.
+
+Effet de bord utile : /favicon.ico ne déclenche plus l'appel à l'API.
 -->
 
 ---
@@ -1391,9 +1480,9 @@ ouvrez ces adresses :
 
 | Adresse | Vous devez voir |
 | --- | --- |
-| `/artiste/1` | la page de Queen, comme avant |
-| `/artiste/999` | Oups ! Cet artiste n'existe pas. |
-| `/artiste/abc` | Oups ! Cet artiste n'existe pas. |
+| `/pokemon/1` | la fiche de Bulbizarre, comme avant |
+| `/pokemon/9999` | Oups ! Ce Pokémon n'existe pas. |
+| `/pokemon/abc` | Oups ! Ce Pokémon n'existe pas. |
 | `/nimportequoi` | Oups ! Cette page n'existe pas. |
 
 <div class="box info mt-4">
@@ -1412,7 +1501,7 @@ la page apparaît avec le statut **404**.
 <span class="box-label">Vous devez voir</span>
 
 <div class="browser">
-  <div class="browser-bar">localhost:8080/artiste/999</div>
+  <div class="browser-bar">localhost:8080/pokemon/9999</div>
   <img src="/img/s2-etape-5.png" />
 </div>
 
@@ -1423,8 +1512,8 @@ la page apparaît avec le statut **404**.
 </div>
 
 <!--
-Le "Oups !" est centré et le message ne l'est pas : c'est le CSS de la
-séance 1 (h1 centré). On règle ça à l'étape 7.
+Le "Oups !" est centré et rouge, le message ne l'est pas : c'est le CSS de
+la séance 1 (h1 centré et rouge). On règle ça à l'étape 7.
 
 Le panneau Réseau : le montrer au vidéoprojecteur, tout le monde n'a pas
 besoin de le faire.
@@ -1447,11 +1536,11 @@ class: text-center
 # L'API en panne
 
 <div class="steps mt-6">
-  <div><b>1</b>Une adresse par artiste</div>
+  <div><b>1</b>Une adresse par Pokémon</div>
   <div><b>2</b>Des cartes cliquables</div>
-  <div><b>3</b>La page de l'artiste</div>
-  <div><b>4</b>Ses concerts</div>
-  <div><b>5</b>Artiste introuvable</div>
+  <div><b>3</b>La fiche du Pokémon</div>
+  <div><b>4</b>Son nom en français</div>
+  <div><b>5</b>Pokémon introuvable</div>
   <div class="on"><b>6</b>L'API en panne</div>
   <div><b>7</b>Le CSS</div>
 </div>
@@ -1473,7 +1562,7 @@ class: text-center
 
 **3.** Dans le terminal :
 
-<div class="term"><span class="err">Erreur : Get "https://groupietrackers.herokuapp.com/api/artists": dial tcp: lookup groupietrackers.herokuapp.com: no such host</span></div>
+<div class="term"><span class="err">Erreur : Get "https://pokeapi.co/api/v2/pokemon?limit=151": dial tcp: lookup pokeapi.co: no such host</span></div>
 
 **4.** Rallumez le Wi-Fi.
 
@@ -1506,6 +1595,9 @@ Faire l'essai tous ensemble, puis faire rallumer le Wi-Fi tout de suite : le
 reste de l'étape a besoin d'Internet pour tester.
 
 Le message exact peut varier selon le système ("no such host", "connectex"…).
+
+Sur une fiche, sans Wi-Fi, c'est pire : "Ce Pokémon n'existe pas", alors
+qu'il existe. On mélange "introuvable" et "en panne" : c'est ce qu'on règle.
 -->
 
 ---
@@ -1516,7 +1608,7 @@ Le message exact peut varier selon le système ("no such host", "connectex"…).
 
 <div>
 
-Ajoutez `"time"` dans `import`, puis ce bloc **au-dessus** de `getArtists` :
+Ajoutez `"time"` dans `import`, puis ce bloc **au-dessus** de `getPokemons` :
 
 <div class="file">main.go</div>
 
@@ -1524,12 +1616,15 @@ Ajoutez `"time"` dans `import`, puis ce bloc **au-dessus** de `getArtists` :
 var client = &http.Client{Timeout: 5 * time.Second}
 
 func appelerAPI(adresse string, resultat any) error {
-	resp, err := client.Get("https://groupietrackers.herokuapp.com/api/" + adresse)
+	resp, err := client.Get("https://pokeapi.co/api/v2/" + adresse)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode == 404 {
+		return nil
+	}
 	if resp.StatusCode != 200 {
 		return fmt.Errorf("l'API a répondu %d", resp.StatusCode)
 	}
@@ -1548,7 +1643,8 @@ gère les erreurs **une seule fois**.
 | --- | --- |
 | `Timeout: 5 * time.Second` | au bout de 5 secondes sans réponse, on abandonne |
 | `resultat any` | la variable à remplir, de n'importe quel type |
-| `resp.StatusCode != 200` | l'API a répondu, mais avec une erreur |
+| `StatusCode == 404` | introuvable : **pas une panne**. Le résultat reste vide, et `fiche` affichera le 404 |
+| `StatusCode != 200` | l'API a répondu, mais avec une erreur |
 | `return err` | on ne s'occupe pas de l'erreur ici : on la renvoie |
 
 </div>
@@ -1556,13 +1652,19 @@ gère les erreurs **une seule fois**.
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.5rem !important; }
+h1 { margin-bottom: 0.3rem; }
+.slidev-layout pre.slidev-code { font-size: 0.5rem !important; line-height: 1.32 !important; }
+.slidev-layout table { font-size: 0.78rem; }
 </style>
 
 <!--
 Les trois cas de panne : pas de réseau (err de Get), API trop lente
 (Timeout), API qui répond une erreur (StatusCode). Le syllabus demande 404,
 500 et timeout : les trois sont là.
+
+Le cas 404 est mis à part : l'API a bien répondu, elle n'a juste rien
+trouvé. On renvoie nil (pas d'erreur), le Pokémon reste vide, et le test
+pokemon.ID == 0 de l'étape 5 continue de marcher.
 
 Sans Timeout, http.Get peut attendre très longtemps une API qui ne répond
 pas.
@@ -1579,27 +1681,30 @@ la laisser remonter au lieu de faire un try/catch sur place.
 
 <div>
 
-Remplacez `getArtists`, `getArtist` et `getConcerts` par :
+Remplacez `getPokemons`, `getPokemon` et `getEspece` par :
 
 <div class="file">main.go</div>
 
 ```go
-func getArtists() ([]Artist, error) {
-	var artists []Artist
-	err := appelerAPI("artists", &artists)
-	return artists, err
+func getPokemons() ([]Pokemon, error) {
+	var liste ListePokemon
+	err := appelerAPI("pokemon?limit=151", &liste)
+	for i := range liste.Results {
+		liste.Results[i].ID = i + 1
+	}
+	return liste.Results, err
 }
 
-func getArtist(id string) (Artist, error) {
-	var artist Artist
-	err := appelerAPI("artists/"+id, &artist)
-	return artist, err
+func getPokemon(id string) (Pokemon, error) {
+	var pokemon Pokemon
+	err := appelerAPI("pokemon/"+id, &pokemon)
+	return pokemon, err
 }
 
-func getConcerts(id string) (map[string][]string, error) {
-	var relation Relation
-	err := appelerAPI("relation/"+id, &relation)
-	return relation.DatesLocations, err
+func getEspece(id string) (Espece, error) {
+	var espece Espece
+	err := appelerAPI("pokemon-species/"+id, &espece)
+	return espece, err
 }
 ```
 
@@ -1607,16 +1712,18 @@ func getConcerts(id string) (map[string][]string, error) {
 
 <div>
 
-**`([]Artist, error)`** : la fonction renvoie **deux choses** : le
+**`([]Pokemon, error)`** : la fonction renvoie **deux choses** : le
 résultat, et l'erreur. L'erreur vaut `nil` si tout s'est bien passé.
 
-**`&artists`** : comme en séance 1, on donne l'adresse de la variable à
+**`&liste`** : comme en séance 1, on donne l'adresse de la variable à
 remplir.
 
-<div class="box trap mt-6">
+`nomFrancais` **ne change pas** : elle n'appelle pas l'API.
+
+<div class="box trap mt-4">
 <span class="box-label">Ne relancez pas encore</span>
 
-`accueil` et `artiste` attendent encore les anciennes fonctions : le
+`accueil` et `fiche` attendent encore les anciennes fonctions : le
 programme ne compile plus. On les met à jour sur les deux slides suivantes.
 
 </div>
@@ -1627,15 +1734,18 @@ programme ne compile plus. On les met à jour sur les deux slides suivantes.
 
 <style>
 h1 { margin-bottom: 0.3rem; }
-.slidev-layout pre.slidev-code { font-size: 0.5rem !important; line-height: 1.38 !important; }
+.slidev-layout pre.slidev-code { font-size: 0.5rem !important; line-height: 1.36 !important; }
 </style>
 
 <!--
-Chaque fonction fait maintenant trois lignes. Les comparer avec les
-anciennes : c'est l'intérêt d'avoir regroupé le code dans appelerAPI.
+Chaque fonction est beaucoup plus courte. Les comparer avec les anciennes :
+c'est l'intérêt d'avoir regroupé le code dans appelerAPI.
+
+La boucle du numéro reste dans getPokemons : elle n'a rien à voir avec
+l'appel.
 
 Si un élève relance quand même :
-  assignment mismatch: 1 variable but getArtists returns 2 values
+  assignment mismatch: 1 variable but getPokemons returns 2 values
 → c'est normal, il faut finir l'étape.
 -->
 
@@ -1654,7 +1764,7 @@ Si un élève relance quand même :
 ```go
 func apiEnPanne(w http.ResponseWriter, err error) {
 	fmt.Println("Erreur :", err)
-	erreur(w, 500, "Le site des artistes ne répond pas. Réessayez plus tard.")
+	erreur(w, 500, "Le Pokédex ne répond pas. Réessayez plus tard.")
 }
 ```
 
@@ -1675,18 +1785,18 @@ la page d'erreur avec le code **500** (pour le visiteur).
 
 ```go
 func accueil(w http.ResponseWriter, r *http.Request) {
-	artists, err := getArtists()
+	pokemons, err := getPokemons()
 	if err != nil {
 		apiEnPanne(w, err)
 		return
 	}
 
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	tmpl.Execute(w, artists)
+	tmpl.Execute(w, pokemons)
 }
 ```
 
-**`artists, err :=`** : on récupère le résultat **et** l'erreur.<br/>
+**`pokemons, err :=`** : on récupère le résultat **et** l'erreur.<br/>
 **`if err != nil`** : un problème ? Page d'erreur, puis `return`.
 
 </div>
@@ -1705,41 +1815,41 @@ au développeur. Le visiteur reçoit une phrase simple.
 
 ---
 
-# … et dans `artiste`
+# … et dans `fiche`
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
 <div>
 
-Remplacez la fonction `artiste` :
+Remplacez la fonction `fiche` :
 
 <div class="file">main.go</div>
 
 ```go
-func artiste(w http.ResponseWriter, r *http.Request) {
+func fiche(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	artist, err := getArtist(id)
+	pokemon, err := getPokemon(id)
 	if err != nil {
 		apiEnPanne(w, err)
 		return
 	}
-	if artist.ID == 0 {
-		erreur(w, 404, "Cet artiste n'existe pas.")
+	if pokemon.ID == 0 {
+		erreur(w, 404, "Ce Pokémon n'existe pas.")
 		return
 	}
 
-	concerts, err := getConcerts(id)
+	espece, err := getEspece(id)
 	if err != nil {
 		apiEnPanne(w, err)
 		return
 	}
 
-	page := PageArtiste{
-		Artist:   artist,
-		Concerts: concerts,
+	page := PagePokemon{
+		Pokemon: pokemon,
+		NomFr:   nomFrancais(espece),
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/artiste.html"))
+	tmpl := template.Must(template.ParseFiles("templates/fiche.html"))
 	tmpl.Execute(w, page)
 }
 ```
@@ -1750,14 +1860,14 @@ func artiste(w http.ResponseWriter, r *http.Request) {
 
 Trois vérifications, dans l'ordre :
 
-1. l'API a-t-elle répondu pour l'artiste ? Sinon **500**
-2. l'artiste existe-t-il ? Sinon **404**
-3. l'API a-t-elle répondu pour les concerts ? Sinon **500**
+1. l'API a-t-elle répondu pour le Pokémon ? Sinon **500**
+2. le Pokémon existe-t-il ? Sinon **404**
+3. l'API a-t-elle répondu pour l'espèce ? Sinon **500**
 
 <div class="box good mt-6">
 
 Chaque problème a **sa page** et **son code**. Si tout va bien, on arrive
-en bas : la page de l'artiste.
+en bas : la fiche du Pokémon.
 
 </div>
 
@@ -1767,7 +1877,7 @@ en bas : la page de l'artiste.
 
 <style>
 h1 { margin-bottom: 0.3rem; }
-.slidev-layout pre.slidev-code { font-size: 0.5rem !important; line-height: 1.38 !important; }
+.slidev-layout pre.slidev-code { font-size: 0.48rem !important; line-height: 1.34 !important; }
 </style>
 
 <!--
@@ -1785,7 +1895,7 @@ C'est la fonction la plus longue du projet, mais elle se lit de haut en bas :
 
 1. <span class="kbd">Ctrl</span> + <span class="kbd">C</span>, `go run .`, <span class="kbd">F5</span> : le site marche comme avant
 2. Coupez le Wi-Fi, puis <span class="kbd">F5</span> : la page d'erreur
-3. Rallumez le Wi-Fi, puis <span class="kbd">F5</span> : les artistes reviennent
+3. Rallumez le Wi-Fi, puis <span class="kbd">F5</span> : les Pokémon reviennent
 
 <div class="box info mt-6">
 
@@ -1816,9 +1926,12 @@ Le terminal affiche toujours le message technique :
 Le site ne s'arrête plus quand l'API tombe, et il repart tout seul quand
 elle revient : rien à relancer.
 
+Vérifier aussi /pokemon/9999 avec le Wi-Fi : toujours le 404 (grâce au cas
+StatusCode == 404 de appelerAPI).
+
 Erreurs de compilation fréquentes ici :
 - undefined: time → "time" manquant dans import
-- assignment mismatch → une fonction accueil ou artiste pas remplacée
+- assignment mismatch → une fonction accueil ou fiche pas remplacée
 -->
 
 ---
@@ -1830,16 +1943,16 @@ class: text-center
 # Le CSS
 
 <div class="steps mt-6">
-  <div><b>1</b>Une adresse par artiste</div>
+  <div><b>1</b>Une adresse par Pokémon</div>
   <div><b>2</b>Des cartes cliquables</div>
-  <div><b>3</b>La page de l'artiste</div>
-  <div><b>4</b>Ses concerts</div>
-  <div><b>5</b>Artiste introuvable</div>
+  <div><b>3</b>La fiche du Pokémon</div>
+  <div><b>4</b>Son nom en français</div>
+  <div><b>5</b>Pokémon introuvable</div>
   <div><b>6</b>L'API en panne</div>
   <div class="on"><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : la page de l'artiste est une fiche, et la page d'erreur est centrée</p>
+<p class="mt-8">À la fin : la fiche est une vraie carte, les types sont des badges, et la page d'erreur est centrée</p>
 
 ---
 
@@ -1854,7 +1967,7 @@ class: text-center
 ```css
 .fiche {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 2rem;
   max-width: 800px;
   margin: 1.5rem auto;
@@ -1862,6 +1975,15 @@ class: text-center
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fiche img {
+  width: 300px;
+}
+
+.fiche h1 {
+  text-align: left;
+  margin-top: 0;
 }
 ```
 
@@ -1872,14 +1994,17 @@ class: text-center
 <div class="file">static/style.css (suite)</div>
 
 ```css
-.fiche img {
-  width: 240px;
-  border-radius: 8px;
+.types {
+  padding: 0;
 }
 
-.fiche h1 {
-  text-align: left;
-  margin-top: 0;
+.types li {
+  display: inline-block;
+  background: #e3350d;
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  text-transform: capitalize;
 }
 
 .erreur {
@@ -1888,10 +2013,10 @@ class: text-center
 }
 ```
 
-<div class="box info mt-4">
+<div class="box info mt-3">
 
-`.fiche` : la photo à gauche, les infos à droite.<br/>
-`.erreur` : tout le contenu de la page d'erreur, centré.
+`.fiche` : l'image à gauche, les infos à droite.<br/>
+`.types li` : chaque type devient un badge.
 
 </div>
 
@@ -1900,14 +2025,15 @@ class: text-center
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.6rem !important; }
+h1 { margin-bottom: 0.3rem; }
+.slidev-layout pre.slidev-code { font-size: 0.54rem !important; line-height: 1.3 !important; }
 </style>
 
 <!--
 Copier-coller autorisé, comme en séance 1.
 
-align-items: flex-start empêche la photo d'être étirée sur toute la hauteur
-de la fiche. Les photos de l'API font 240 × 240 : on ne les agrandit pas.
+display: inline-block met les types côte à côte, au lieu d'une liste à
+puces. padding: 0 sur .types enlève le décalage de la liste.
 -->
 
 ---
@@ -1930,7 +2056,7 @@ Le style ne s'applique pas ? Rechargez **sans cache** :
 <div class="box info mt-4">
 <span class="box-label">Essayez</span>
 
-`/artiste/999` : la page d'erreur est maintenant centrée.
+`/pokemon/9999` : la page d'erreur est maintenant centrée.
 
 </div>
 
@@ -1942,7 +2068,7 @@ Le style ne s'applique pas ? Rechargez **sans cache** :
 <span class="box-label">Vous devez voir</span>
 
 <div class="browser">
-  <div class="browser-bar">localhost:8080/artiste/1</div>
+  <div class="browser-bar">localhost:8080/pokemon/1</div>
   <img src="/img/s2-etape-7.png" />
 </div>
 
@@ -1967,10 +2093,10 @@ début".
 
 | Partie | Dans `main.go` |
 | --- | --- |
-| **Les données** | `Artist`, `Relation`, `PageArtiste` |
-| **Parler à l'API** | `client`, `appelerAPI`, `getArtists`, `getArtist`, `getConcerts` |
+| **Les données** | `Nom`, `Type`, `Pokemon`, `ListePokemon`, `Traduction`, `Espece`, `PagePokemon` |
+| **Parler à l'API** | `client`, `appelerAPI`, `getPokemons`, `getPokemon`, `getEspece`, `nomFrancais` |
 | **Les erreurs** | `erreur`, `apiEnPanne` |
-| **Les pages** | `accueil`, `artiste`, `introuvable` |
+| **Les pages** | `accueil`, `fiche`, `introuvable` |
 | **Les adresses** | `main` |
 
 </div>
@@ -1980,7 +2106,7 @@ début".
 <div class="box info">
 <span class="box-label">Votre projet</span>
 
-<div class="term">groupie/<br/>├── go.mod<br/>├── main.go<br/>├── static/<br/>│&nbsp;&nbsp;&nbsp;└── style.css<br/>└── templates/<br/>&nbsp;&nbsp;&nbsp;&nbsp;├── artiste.html<br/>&nbsp;&nbsp;&nbsp;&nbsp;├── erreur.html<br/>&nbsp;&nbsp;&nbsp;&nbsp;└── index.html</div>
+<div class="term">pokedex/<br/>├── go.mod<br/>├── main.go<br/>├── static/<br/>│&nbsp;&nbsp;&nbsp;└── style.css<br/>└── templates/<br/>&nbsp;&nbsp;&nbsp;&nbsp;├── erreur.html<br/>&nbsp;&nbsp;&nbsp;&nbsp;├── fiche.html<br/>&nbsp;&nbsp;&nbsp;&nbsp;└── index.html</div>
 
 </div>
 
@@ -1988,7 +2114,7 @@ début".
 <span class="box-label">Le projet complet</span>
 
 Sur GitHub, branche **seance-2** :<br/>
-github.com/ynov-vinsonneau-antoine/b1-go-web-api-groupie
+github.com/ynov-vinsonneau-antoine/b1-go-web-api-pokedex
 
 </div>
 
@@ -2011,19 +2137,20 @@ par fonction, dans l'ordre du tableau.
 
 | Ce que vous voyez | La solution |
 | --- | --- |
-| `/artiste/3` affiche l'accueil | `"/artiste/{id}"` dans `main`, et `go 1.22` ou plus dans `go.mod` |
-| `Artiste ` sans numéro | `{id}` et `PathValue("id")` : le même nom |
-| Le clic sur une carte ramène à l'accueil | le `href` du lien : `/artiste/`, comme dans `main` |
-| Une info vide sur la page de l'artiste | la struct (**majuscule**, ``json:"…"``), et le `/` à la fin de l'adresse |
-| La page de l'artiste est blanche | un `{{.Name}}` sans `.Artist` devant dans `artiste.html` |
+| `/pokemon/25` affiche l'accueil | `"/pokemon/{id}"` dans `main`, et `go 1.22` ou plus dans `go.mod` |
+| `Pokémon ` sans numéro | `{id}` et `PathValue("id")` : le même nom |
+| Le clic sur une carte ramène à l'accueil | le `href` du lien : `/pokemon/`, comme dans `main` |
+| Une info vide sur la fiche | la struct (**majuscule**, ``json:"…"``), et le `/` à la fin de l'adresse |
+| Pas de nom français | ``json:"names"``, ``json:"language"``, et `"fr"` en minuscules |
+| La fiche est blanche ou coupée | un `{{.ID}}` ou `{{.Name}}` sans `.Pokemon` devant dans `fiche.html` |
 | `panic: pattern "/" … conflicts with pattern "/"` | l'accueil doit être sur `"/{$}"` |
-| La page d'erreur, puis la page de l'artiste en dessous | le `return` après `erreur(…)` |
-| `assignment mismatch` ou `undefined: time` | `accueil` ou `artiste` pas remplacée, ou `"time"` manquant dans `import` |
+| La page d'erreur, puis la fiche en dessous | le `return` après `erreur(…)` |
+| `assignment mismatch` ou `undefined: time` | `accueil` ou `fiche` pas remplacée, ou `"time"` manquant dans `import` |
 | Toujours la page « ne répond pas » | le Wi-Fi est-il rallumé ? Le message exact est dans le terminal |
 
 <style>
-.slidev-layout table { font-size: 0.72rem; }
-.slidev-layout td, .slidev-layout th { padding: 0.28rem 0.6rem; }
+.slidev-layout table { font-size: 0.68rem; }
+.slidev-layout td, .slidev-layout th { padding: 0.24rem 0.6rem; }
 </style>
 
 <!--
@@ -2032,51 +2159,120 @@ La slide à garder ouverte pendant que tu circules.
 
 ---
 
-# Bonus : vous avez fini ?
+# Bonus 1 : les statistiques
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
 <div>
 
-**1. Le nombre de concerts**
+**1.** Dans `main.go`, ajoutez la struct `Stat` **au-dessus** de
+`Pokemon` :
 
-Dans `artiste.html`, remplacez le titre des concerts :
+<div class="file">main.go</div>
 
-<div class="file">templates/artiste.html</div>
-
-```html
-<h2>Concerts ({{len .Concerts}})</h2>
+```go
+type Stat struct {
+	BaseStat int `json:"base_stat"`
+	Stat     Nom `json:"stat"`
+}
 ```
 
-`len` marche aussi sur une map : le nombre de lieux.
+**2.** Dans la struct `Pokemon`, ajoutez la ligne :
+
+<div class="file">main.go</div>
+
+```go
+	Stats []Stat `json:"stats"`
+```
 
 </div>
 
 <div>
 
-**2. Le nombre d'artistes sur l'accueil**
+**3.** Dans `fiche.html`, sous la liste des types :
 
-Dans `index.html`, sous le `<h1>` :
-
-<div class="file">templates/index.html</div>
+<div class="file">templates/fiche.html</div>
 
 ```html
-<p>{{len .}} artistes</p>
+<h2>Statistiques</h2>
+<ul>
+  {{range .Pokemon.Stats}}
+    <li>{{.Stat.Name}} : {{.BaseStat}}</li>
+  {{end}}
+</ul>
 ```
 
-Le point est la liste entière, comme dans `{{range .}}`.
+Puis relancez Go : `hp : 45`, `attack : 49`…
 
 </div>
 
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.7rem !important; }
+.slidev-layout pre.slidev-code { font-size: 0.6rem !important; }
 </style>
 
 <!--
-Deux modifications de template seulement : F5 suffit, pas besoin de
-relancer Go.
+Relancer Go (main.go modifié). Le même principe que les types : une struct
+dans une struct. Ouvrir pokeapi.co/api/v2/pokemon/1 et chercher "stats" pour
+voir d'où ça vient. Les stats serviront au graphique de la séance 3.
+-->
+
+---
+
+# Bonus 2 : une couleur par type
+
+<div class="grid grid-cols-2 gap-8 mt-2">
+
+<div>
+
+Dans `fiche.html`, donnez au badge le nom du type comme classe :
+
+<div class="file">templates/fiche.html</div>
+
+```html
+<li class="{{.Type.Name}}">{{.Type.Name}}</li>
+```
+
+Le badge de Salamèche devient `<li class="fire">`.
+
+</div>
+
+<div>
+
+À la fin de `style.css` :
+
+<div class="file">static/style.css</div>
+
+```css
+.types .fire {
+  background: #f08030;
+}
+
+.types .water {
+  background: #6890f0;
+}
+
+.types .grass {
+  background: #78c850;
+}
+```
+
+<span class="kbd">F5</span>, puis essayez `/pokemon/4`, `/pokemon/7`.
+Ajoutez d'autres types !
+
+</div>
+
+</div>
+
+<style>
+.slidev-layout pre.slidev-code { font-size: 0.6rem !important; line-height: 1.35 !important; }
+</style>
+
+<!--
+F5 suffit. Les noms des types de l'API : normal, fire, water,
+grass, electric, ice, fighting, poison, ground, flying, psychic, bug, rock,
+ghost, dragon, dark, steel, fairy.
 -->
 
 ---
@@ -2087,8 +2283,9 @@ relancer Go.
 
 <div>
 
-- une **adresse par artiste** : `/artiste/{id}`
-- une **page par artiste**, avec **deux appels** à l'API
+- une **adresse par Pokémon** : `/pokemon/{id}`
+- une **fiche**, avec **deux appels** à l'API
+- des **structs dans des structs**, pour lire un JSON imbriqué
 - une struct pour envoyer **plusieurs données** à une page
 - des pages d'erreur **404** (introuvable) et **500** (API en panne)
 - un **timeout** : on n'attend pas l'API plus de 5 secondes
@@ -2100,13 +2297,13 @@ relancer Go.
 <div class="box info">
 <span class="box-label">Séance 3</span>
 
-Une **recherche** et des **filtres** sur les artistes, des lieux de concert
-**lisibles**, et une **carte** des concerts.
+Une **recherche** et un **filtre par type** sur l'accueil, et un
+**graphique** des statistiques sur chaque fiche.
 
 </div>
 
 <div class="box trap mt-4">
-<span class="box-label">Gardez votre dossier groupie</span>
+<span class="box-label">Gardez votre dossier pokedex</span>
 
 On repart de ce code la prochaine fois.
 

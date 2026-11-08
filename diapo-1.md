@@ -1,9 +1,9 @@
 ---
 theme: default
-title: "Groupie Tracker · Séance 1 · La page d'accueil"
+title: "Pokédex · Séance 1 · La page d'accueil"
 info: |
-  ## Groupie Tracker · Séance 1
-  Un site web en Go qui affiche les artistes d'une API.
+  ## Pokédex · Séance 1
+  Un site web en Go qui affiche les Pokémon d'une API.
   Cours 4h · Bachelor 1
 class: text-center
 transition: slide-left
@@ -21,9 +21,9 @@ drawings:
 
 <div class="tag mb-6">Go · Séance 1 sur 3</div>
 
-# Groupie Tracker
+# Pokédex
 
-<p class="big">Aujourd'hui : la page d'accueil du site,<br/>avec les artistes d'une vraie API</p>
+<p class="big">Aujourd'hui : la page d'accueil du site,<br/>avec les Pokémon d'une vraie API</p>
 
 <div class="abs-br m-6 text-sm">
   <span class="kbd">→</span> avancer · <span class="kbd">d</span> thème clair / sombre
@@ -53,16 +53,17 @@ Go aujourd'hui. Vous suivez les slides, et à la fin vous avez un site."
 
 <div class="col-span-2">
 
-Un **site web**, écrit en **Go**, qui affiche les **52 artistes** d'une API.
+Un **site web**, écrit en **Go**, qui affiche les **151 premiers Pokémon**
+d'une API.
 
-Les données (noms, photos, années) ne sont pas dans votre code : votre site
+Les données (noms, numéros, images) ne sont pas dans votre code : votre site
 **va les chercher sur Internet**, à chaque visite.
 
 <div class="box info mt-5">
 <span class="box-label">Les prochaines séances</span>
 
-**Séance 2** : la page de chaque artiste, avec ses concerts.<br/>
-**Séance 3** : une recherche, des filtres, une carte.
+**Séance 2** : la fiche de chaque Pokémon, avec son nom en français.<br/>
+**Séance 3** : une recherche, des filtres, un graphique.
 
 </div>
 
@@ -82,16 +83,16 @@ montrer en direct si tu as fait le projet avant (recommandé).
 <div class="flow mt-8">
   <div class="flow-node"><b>Le navigateur</b>demande la page</div>
   <div class="flow-arrow">→</div>
-  <div class="flow-node"><b>Votre programme Go</b>va chercher les artistes</div>
+  <div class="flow-node"><b>Votre programme Go</b>va chercher les Pokémon</div>
   <div class="flow-arrow">→</div>
-  <div class="flow-node"><b>L'API</b>renvoie la liste des artistes</div>
+  <div class="flow-node"><b>L'API</b>renvoie la liste des Pokémon</div>
 </div>
 
 <div class="text-left mt-10">
 
 1. Le navigateur demande la page à **votre programme Go**
-2. Go demande la liste des artistes à **l'API** Groupie Tracker
-3. Go range les artistes dans une **page HTML**, et la renvoie au navigateur
+2. Go demande la liste des Pokémon à **l'API** PokéAPI
+3. Go range les Pokémon dans une **page HTML**, et la renvoie au navigateur
 
 </div>
 
@@ -104,7 +105,10 @@ Votre programme les récupère, puis les met en forme.
 
 <!--
 Le seul schéma de la séance. Y revenir à l'étape 4 ("on est ici : Go va
-chercher les artistes").
+chercher les Pokémon").
+
+PokéAPI (pokeapi.co) est gratuite, sans clé, et très utilisée : elle tient
+la charge d'une salle entière.
 
 POUR TOI : c'est exactement un serveur Nest qui appelle une API externe avec
 fetch et renvoie une vue. Go fait le serveur ET le rendu HTML (comme un SSR).
@@ -120,7 +124,7 @@ fetch et renvoie une vue. Go fait le serveur ET le rendu HTML (comme un SSR).
   <div><b>3</b>Une page HTML</div>
   <div><b>4</b>Appeler l'API</div>
   <div><b>5</b>Les noms dans la page</div>
-  <div><b>6</b>Une carte par artiste</div>
+  <div><b>6</b>Une carte par Pokémon</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
@@ -159,7 +163,7 @@ class: text-center
   <div><b>3</b>Une page HTML</div>
   <div><b>4</b>Appeler l'API</div>
   <div><b>5</b>Les noms dans la page</div>
-  <div><b>6</b>Une carte par artiste</div>
+  <div><b>6</b>Une carte par Pokémon</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
@@ -182,9 +186,9 @@ go version
 Il faut **go1.22** ou plus. Sinon, installez Go : [go.dev/dl](https://go.dev/dl/)
 
 ```bash
-mkdir groupie
-cd groupie
-go mod init groupie
+mkdir pokedex
+cd pokedex
+go mod init pokedex
 code .
 ```
 
@@ -194,15 +198,15 @@ code .
 
 | Commande | Ce qu'elle fait |
 | --- | --- |
-| `mkdir groupie` | crée le dossier |
-| `cd groupie` | entre dedans |
-| `go mod init groupie` | déclare un projet Go nommé `groupie` (crée `go.mod`) |
+| `mkdir pokedex` | crée le dossier |
+| `cd pokedex` | entre dedans |
+| `go mod init pokedex` | déclare un projet Go nommé `pokedex` (crée `go.mod`) |
 | `code .` | ouvre le dossier dans VS Code |
 
 <div class="box trap mt-6">
 <span class="box-label">Toujours dans ce dossier</span>
 
-Toutes les commandes de la séance se lancent **dans le dossier `groupie`**.
+Toutes les commandes de la séance se lancent **dans le dossier `pokedex`**.
 
 </div>
 
@@ -213,8 +217,11 @@ Toutes les commandes de la séance se lancent **dans le dossier `groupie`**.
 <!--
 go mod init ≈ npm init. go.mod ≈ package.json.
 
+Le dossier s'écrit "pokedex", sans accent : un accent dans un nom de dossier
+ou de module pose des problèmes.
+
 Si "code ." ne marche pas : ouvrir VS Code à la main, Fichier > Ouvrir le
-dossier > groupie.
+dossier > pokedex.
 
 Conseiller l'extension Go de VS Code (éditeur Go Team at Google) : elle
 ajoute toute seule les imports à l'enregistrement. Pratique, mais le cours
@@ -271,7 +278,7 @@ dire « ici ».
 
 <!--
 Erreur classique : "go.mod file not found". Ils ne sont pas dans le dossier
-groupie. cd groupie.
+pokedex. cd pokedex.
 
 Si quelqu'un a une erreur ici, la régler AVANT de passer à l'étape 2 : tout
 le reste en dépend.
@@ -291,7 +298,7 @@ class: text-center
   <div><b>3</b>Une page HTML</div>
   <div><b>4</b>Appeler l'API</div>
   <div><b>5</b>Les noms dans la page</div>
-  <div><b>6</b>Une carte par artiste</div>
+  <div><b>6</b>Une carte par Pokémon</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
@@ -463,11 +470,11 @@ class: text-center
   <div class="on"><b>3</b>Une page HTML</div>
   <div><b>4</b>Appeler l'API</div>
   <div><b>5</b>Les noms dans la page</div>
-  <div><b>6</b>Une carte par artiste</div>
+  <div><b>6</b>Une carte par Pokémon</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : le navigateur affiche une vraie page, avec un titre <b>Groupie Tracker</b></p>
+<p class="mt-8">À la fin : le navigateur affiche une vraie page, avec un titre <b>Pokédex</b></p>
 
 ---
 
@@ -484,10 +491,10 @@ class: text-center
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Groupie Tracker</title>
+  <title>Pokédex</title>
 </head>
 <body>
-  <h1>Groupie Tracker</h1>
+  <h1>Pokédex</h1>
 </body>
 </html>
 ```
@@ -501,7 +508,7 @@ Créez d'abord un dossier **`templates`**, puis le fichier `index.html` dedans.
 <div class="box info mt-4">
 <span class="box-label">Votre projet</span>
 
-<div class="term">groupie/<br/>├── go.mod<br/>├── main.go<br/>└── templates/<br/>&nbsp;&nbsp;&nbsp;&nbsp;└── index.html</div>
+<div class="term">pokedex/<br/>├── go.mod<br/>├── main.go<br/>└── templates/<br/>&nbsp;&nbsp;&nbsp;&nbsp;└── index.html</div>
 
 </div>
 
@@ -519,6 +526,8 @@ données**. Pour l'instant, elle n'en a pas.
 <!--
 Le dossier s'appelle "templates", avec un s, en minuscules. Le nom compte :
 main.go va le chercher par ce chemin exact.
+
+Le é de Pokédex s'affiche bien grâce à meta charset="UTF-8".
 -->
 
 ---
@@ -578,7 +587,7 @@ func accueil(w http.ResponseWriter, r *http.Request) {
 template.Must : "si le fichier est introuvable, arrête tout". C'est la
 version la plus simple ; la gestion d'erreur propre est pour la séance 2.
 
-Le nil deviendra "artists" à l'étape 5 : l'annoncer.
+Le nil deviendra "pokemons" à l'étape 5 : l'annoncer.
 -->
 
 ---
@@ -625,7 +634,7 @@ change **sans relancer Go**.
 Si la page est vide et que le terminal affiche
   http: panic serving ... open templates/index.html: The system cannot find the path specified.
 → le dossier templates est mal nommé, ou le fichier n'est pas dedans, ou
-go run n'est pas lancé depuis le dossier groupie.
+go run n'est pas lancé depuis le dossier pokedex.
 -->
 
 ---
@@ -634,7 +643,7 @@ layout: center
 
 # Pause · 10 minutes
 
-<p class="big">Au retour : on va chercher les artistes sur Internet.</p>
+<p class="big">Au retour : on va chercher les Pokémon sur Internet.</p>
 
 ---
 class: text-center
@@ -650,11 +659,11 @@ class: text-center
   <div><b>3</b>Une page HTML</div>
   <div class="on"><b>4</b>Appeler l'API</div>
   <div><b>5</b>Les noms dans la page</div>
-  <div><b>6</b>Une carte par artiste</div>
+  <div><b>6</b>Une carte par Pokémon</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : le terminal affiche <code>52 artistes</code></p>
+<p class="mt-8">À la fin : le terminal affiche <code>151 Pokémon</code></p>
 
 ---
 
@@ -666,50 +675,67 @@ class: text-center
 
 Ouvrez cette adresse dans un nouvel onglet :
 
-<p class="big"><a href="https://groupietrackers.herokuapp.com/api/artists">groupietrackers.herokuapp.com/api/artists</a></p>
+<p class="big"><a href="https://pokeapi.co/api/v2/pokemon?limit=151">pokeapi.co/api/v2/pokemon?limit=151</a></p>
 
-C'est la **liste des 52 artistes**, au format **JSON**. Voici le premier :
+C'est la **liste des 151 premiers Pokémon**, au format **JSON**.
+
+<div class="box info mt-4">
+
+`{ … }` : un **objet**. Dans **`results`**, une **liste** `[ … ]` : un
+Pokémon par élément, avec son **nom**.
+
+`?limit=151` : seulement les 151 premiers.
+
+</div>
 
 </div>
 
 <div>
 
 ```json
-[
-  {
-    "id": 1,
-    "image": "https://groupietrackers…/queen.jpeg",
-    "name": "Queen",
-    "members": ["Freddie Mercury", "Brian May", …],
-    "creationDate": 1970,
-    "firstAlbum": "14-12-1973",
+{
+  "count": 1351,
+  "next": "https://pokeapi.co/api/v2/pokemon?offset=151…",
+  "previous": null,
+  "results": [
+    {
+      "name": "bulbasaur",
+      "url": "https://pokeapi.co/api/v2/pokemon/1/"
+    },
+    {
+      "name": "ivysaur",
+      "url": "https://pokeapi.co/api/v2/pokemon/2/"
+    },
     …
-  },
-  …
-]
+  ]
+}
 ```
 
-<div class="box info mt-4">
-
-`[ … ]` : une **liste**. `{ … }` : **un artiste**, avec ses informations.
-
 </div>
 
 </div>
 
-</div>
+<style>
+.slidev-layout pre.slidev-code { font-size: 0.6rem !important; }
+</style>
 
 <!--
 Firefox affiche le JSON en arbre tout seul. Chrome : cocher "Impression
 élégante".
 
-Faire remarquer les noms exacts : "name", "image", "creationDate". On va les
-recopier tels quels dans la slide suivante, à la majuscule près.
+count : l'API connaît 1351 Pokémon. Sans ?limit, elle n'en renvoie que 20.
+Les 151 premiers sont ceux de la première génération (Rouge / Bleu).
+
+Faire remarquer les noms exacts : "results", "name". On va les recopier tels
+quels dans la slide suivante, à la majuscule près.
+
+Les noms sont en anglais : c'est la langue de l'API. Le nom français arrive
+en séance 2.
 -->
 
 ---
 
-# Décrivez un artiste en Go
+# Décrivez la réponse en Go
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
@@ -720,25 +746,32 @@ Ajoutez ce bloc **au-dessus** de la fonction `accueil` :
 <div class="file">main.go</div>
 
 ```go
-type Artist struct {
-	ID           int      `json:"id"`
-	Name         string   `json:"name"`
-	Image        string   `json:"image"`
-	CreationDate int      `json:"creationDate"`
-	Members      []string `json:"members"`
+type Pokemon struct {
+	Name string `json:"name"`
+}
+
+type ListePokemon struct {
+	Results []Pokemon `json:"results"`
 }
 ```
+
+<div class="box info mt-4">
+
+**`Pokemon`** : un Pokémon de la liste. On ne garde que son nom.<br/>
+**`ListePokemon`** : la réponse entière. On ne garde que `results`.
+
+</div>
 
 </div>
 
 <div>
 
-Une **struct**, c'est la fiche d'un artiste : une ligne par information.
+Une **struct**, c'est une fiche : une ligne par information.
 
 | Dans la ligne | Veut dire |
 | --- | --- |
 | `Name` | le nom du champ en Go, **avec une majuscule** |
-| `string` | son type : du texte (`int` : un nombre, `[]string` : une liste de textes) |
+| `string` | son type : du texte (`[]Pokemon` : une liste de `Pokemon`) |
 | ``json:"name"`` | le nom **exact** de l'information dans le JSON |
 
 <div class="box trap mt-4">
@@ -751,14 +784,21 @@ Les accents graves `` ` `` : <span class="kbd">AltGr</span> + <span class="kbd">
 
 </div>
 
+<style>
+.slidev-layout pre.slidev-code { font-size: 0.66rem !important; }
+</style>
+
 <!--
-Les deux erreurs qui donnent un champ VIDE, sans aucun message d'erreur :
+On décrit le JSON tel qu'il est : un objet (ListePokemon) qui contient une
+liste (Results) de Pokémon. Montrer la slide précédente en parallèle.
+
+Les deux erreurs qui donnent une info VIDE, sans aucun message d'erreur :
 - le nom du champ en minuscule (name au lieu de Name)
-- le texte du json:"..." mal écrit (creationdate au lieu de creationDate)
-Si un élève voit une info vide à l'étape 5 ou 6 : c'est l'une des deux.
+- le texte du json:"..." mal écrit (result au lieu de results)
+Si un élève voit "0 Pokémon" ou une page vide : c'est l'une des deux.
 
 On ne met pas tous les champs du JSON : seulement ceux qu'on affiche. Les
-autres sont ignorés.
+autres (count, next, url…) sont ignorés.
 
 POUR TOI : la struct ≈ une interface TS / un DTO.
 -->
@@ -771,22 +811,22 @@ POUR TOI : la struct ≈ une interface TS / un DTO.
 
 <div class="col-span-3">
 
-Ajoutez cette fonction **sous** la struct `Artist` :
+Ajoutez cette fonction **sous** la struct `ListePokemon` :
 
 <div class="file">main.go</div>
 
 ```go
-func getArtists() []Artist {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+func getPokemons() []Pokemon {
+	resp, err := http.Get("https://pokeapi.co/api/v2/pokemon?limit=151")
 	if err != nil {
 		fmt.Println("Erreur :", err)
 		return nil
 	}
 	defer resp.Body.Close()
 
-	var artists []Artist
-	json.NewDecoder(resp.Body).Decode(&artists)
-	return artists
+	var liste ListePokemon
+	json.NewDecoder(resp.Body).Decode(&liste)
+	return liste.Results
 }
 ```
 
@@ -804,9 +844,9 @@ l'erreur.
 **`defer resp.Body.Close()`** : on fermera la connexion à la fin de la
 fonction.
 
-**`Decode(&artists)`** transforme le JSON en une liste d'`Artist`.
+**`Decode(&liste)`** transforme le JSON en une `ListePokemon`.
 
-**`return artists`** renvoie la liste.
+**`return liste.Results`** renvoie seulement la liste des Pokémon.
 
 </div>
 
@@ -817,9 +857,9 @@ fonction.
 </style>
 
 <!--
-[]Artist = une liste d'Artist (un "slice"). Ils ont vu les slices en Go.
+[]Pokemon = une liste de Pokemon (un "slice"). Ils ont vu les slices en Go.
 
-Le & devant artists : "voilà l'adresse de ma variable, remplis-la". S'ils
+Le & devant liste : "voilà l'adresse de ma variable, remplis-la". S'ils
 l'oublient, la liste reste vide.
 
 POUR TOI : http.Get ≈ fetch(url). Decode ≈ await res.json(), sauf qu'en Go
@@ -829,7 +869,7 @@ defer ≈ un finally.
 
 ---
 
-# Testez : combien d'artistes ?
+# Testez : combien de Pokémon ?
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
@@ -841,8 +881,8 @@ Dans `accueil`, ajoutez les deux premières lignes :
 
 ```go
 func accueil(w http.ResponseWriter, r *http.Request) {
-	artists := getArtists()
-	fmt.Println(len(artists), "artistes")
+	pokemons := getPokemons()
+	fmt.Println(len(pokemons), "Pokémon")
 
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 	tmpl.Execute(w, nil)
@@ -858,13 +898,13 @@ Puis : <span class="kbd">Ctrl</span> + <span class="kbd">C</span>, `go run .`, <
 <div class="box good">
 <span class="box-label">Vous devez voir, dans le terminal</span>
 
-<div class="term"><span class="prompt">$</span> go run .<br/>Serveur lancé sur http://localhost:8080<br/><span class="ok">52 artistes</span></div>
+<div class="term"><span class="prompt">$</span> go run .<br/>Serveur lancé sur http://localhost:8080<br/><span class="ok">151 Pokémon</span></div>
 
 </div>
 
 <div class="box info mt-4">
 
-La ligne `52 artistes` apparaît **quand vous rechargez la page** : c'est à
+La ligne `151 Pokémon` apparaît **quand vous rechargez la page** : c'est à
 ce moment-là que Go appelle l'API.
 
 </div>
@@ -878,7 +918,12 @@ ce moment-là que Go appelle l'API.
 </style>
 
 <!--
-Ceux qui voient "0 artistes" : le & oublié dans Decode, ou l'URL mal tapée.
+La ligne peut apparaître deux fois : le navigateur demande aussi
+/favicon.ico, et pour l'instant "/" répond à toutes les adresses. C'est
+normal, on règle ça en séance 2.
+
+Ceux qui voient "0 Pokémon" : le & oublié dans Decode, json:"results" mal
+écrit, ou l'URL mal tapée.
 Ceux qui voient "Erreur : ..." : pas d'accès Internet, ou proxy de l'école.
 
 La page dans le navigateur ne change pas encore : c'est normal, on n'a rien
@@ -904,16 +949,16 @@ import (
 	"net/http"
 )
 
-type Artist struct {
-	ID           int      `json:"id"`
-	Name         string   `json:"name"`
-	Image        string   `json:"image"`
-	CreationDate int      `json:"creationDate"`
-	Members      []string `json:"members"`
+type Pokemon struct {
+	Name string `json:"name"`
 }
 
-func getArtists() []Artist {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+type ListePokemon struct {
+	Results []Pokemon `json:"results"`
+}
+
+func getPokemons() []Pokemon {
+	resp, err := http.Get("https://pokeapi.co/api/v2/pokemon?limit=151")
 	if err != nil {
 		fmt.Println("Erreur :", err)
 		return nil
@@ -926,14 +971,14 @@ func getArtists() []Artist {
 <div>
 
 ```go
-	var artists []Artist
-	json.NewDecoder(resp.Body).Decode(&artists)
-	return artists
+	var liste ListePokemon
+	json.NewDecoder(resp.Body).Decode(&liste)
+	return liste.Results
 }
 
 func accueil(w http.ResponseWriter, r *http.Request) {
-	artists := getArtists()
-	fmt.Println(len(artists), "artistes")
+	pokemons := getPokemons()
+	fmt.Println(len(pokemons), "Pokémon")
 
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 	tmpl.Execute(w, nil)
@@ -953,13 +998,13 @@ func main() {
 
 <style>
 h1 { margin-bottom: 0.3rem; }
-.slidev-layout pre.slidev-code { font-size: 0.53rem !important; line-height: 1.42 !important; }
+.slidev-layout pre.slidev-code { font-size: 0.5rem !important; line-height: 1.4 !important; }
 </style>
 
 <!--
 Slide de rattrapage : celui qui est perdu compare son fichier avec celui-ci,
 ligne par ligne. Le fichier est coupé en deux colonnes au milieu de
-getArtists.
+getPokemons.
 -->
 
 ---
@@ -976,15 +1021,15 @@ class: text-center
   <div><b>3</b>Une page HTML</div>
   <div><b>4</b>Appeler l'API</div>
   <div class="on"><b>5</b>Les noms dans la page</div>
-  <div><b>6</b>Une carte par artiste</div>
+  <div><b>6</b>Une carte par Pokémon</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : les 52 noms s'affichent dans le navigateur</p>
+<p class="mt-8">À la fin : les 151 noms s'affichent dans le navigateur</p>
 
 ---
 
-# Envoyez les artistes à la page
+# Envoyez les Pokémon à la page
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
@@ -992,17 +1037,17 @@ class: text-center
 
 Dans `accueil` :
 
-- **supprimez** la ligne `fmt.Println(len(artists), "artistes")`
-- **remplacez** `nil` par `artists`
+- **supprimez** la ligne `fmt.Println(len(pokemons), "Pokémon")`
+- **remplacez** `nil` par `pokemons`
 
 <div class="file">main.go</div>
 
 ```go
 func accueil(w http.ResponseWriter, r *http.Request) {
-	artists := getArtists()
+	pokemons := getPokemons()
 
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	tmpl.Execute(w, artists)
+	tmpl.Execute(w, pokemons)
 }
 ```
 
@@ -1012,7 +1057,7 @@ func accueil(w http.ResponseWriter, r *http.Request) {
 
 <div class="box info">
 
-`tmpl.Execute(w, artists)` : Go envoie la page **et la liste des artistes**
+`tmpl.Execute(w, pokemons)` : Go envoie la page **et la liste des Pokémon**
 au template. Dans le HTML, on pourra s'en servir.
 
 </div>
@@ -1049,7 +1094,7 @@ Remplacez le `<body>` :
 
 ```html
 <body>
-  <h1>Groupie Tracker</h1>
+  <h1>Pokédex</h1>
 
   {{range .}}
     <p>{{.Name}}</p>
@@ -1063,14 +1108,14 @@ Remplacez le `<body>` :
 
 | On écrit | Ça veut dire |
 | --- | --- |
-| `{{range .}}` | pour **chaque artiste** de la liste… |
+| `{{range .}}` | pour **chaque Pokémon** de la liste… |
 | `{{.Name}}` | …écris **son nom** |
 | `{{end}}` | fin de la boucle |
 
 <div class="box info mt-6">
 
-Tout ce qui est entre `{{range .}}` et `{{end}}` est **répété 52 fois**, une
-fois par artiste.
+Tout ce qui est entre `{{range .}}` et `{{end}}` est **répété 151 fois**,
+une fois par Pokémon.
 
 </div>
 
@@ -1080,14 +1125,14 @@ fois par artiste.
 
 <!--
 Le point "." veut dire "les données reçues". Hors de la boucle, c'est la
-liste entière (ce qu'on a passé à Execute). Dans la boucle, c'est l'artiste
+liste entière (ce qu'on a passé à Execute). Dans la boucle, c'est le Pokémon
 en cours. Le dire une fois, pas plus.
 
 Name avec la MAJUSCULE : c'est le nom du champ Go, pas la clé JSON.
 Erreur fréquente : .name en minuscule → la page plante avec une erreur dans
 le terminal ("can't evaluate field name").
 
-POUR TOI : range ≈ artists.map(a => ...) dans du JSX.
+POUR TOI : range ≈ pokemons.map(p => ...) dans du JSX.
 -->
 
 ---
@@ -1102,8 +1147,8 @@ POUR TOI : range ≈ artists.map(a => ...) dans du JSX.
 
 <div class="box info mt-4">
 
-Les noms viennent **de l'API**, pas de votre code. Si l'API ajoutait un
-artiste demain, il apparaîtrait sur votre site sans rien changer.
+Les noms viennent **de l'API**, pas de votre code. Ils sont en anglais :
+c'est la langue de l'API.
 
 </div>
 
@@ -1136,7 +1181,7 @@ layout: center
 
 # Pause · 10 minutes
 
-<p class="big">Au retour : chaque artiste devient une carte, avec sa photo.</p>
+<p class="big">Au retour : chaque Pokémon devient une carte, avec son image.</p>
 
 ---
 class: text-center
@@ -1144,7 +1189,7 @@ class: text-center
 
 <div class="step-num">Étape 6</div>
 
-# Une carte par artiste
+# Une carte par Pokémon
 
 <div class="steps mt-6">
   <div><b>1</b>Créer le projet</div>
@@ -1152,86 +1197,153 @@ class: text-center
   <div><b>3</b>Une page HTML</div>
   <div><b>4</b>Appeler l'API</div>
   <div><b>5</b>Les noms dans la page</div>
-  <div class="on"><b>6</b>Une carte par artiste</div>
+  <div class="on"><b>6</b>Une carte par Pokémon</div>
   <div><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : chaque artiste a sa photo, son année de création et son nombre de membres</p>
+<p class="mt-8">À la fin : chaque Pokémon a son numéro et son image</p>
 
 ---
 
-# Remplacez la boucle dans `index.html`
+# Donnez un numéro à chaque Pokémon
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
 <div>
 
-<div class="file">templates/index.html</div>
+**1.** Dans la struct `Pokemon`, ajoutez la ligne `ID` :
 
-```html
-<body>
-  <h1>Groupie Tracker</h1>
+<div class="file">main.go</div>
 
-  <div class="grille">
-    {{range .}}
-      <div class="carte">
-        <img src="{{.Image}}" alt="{{.Name}}">
-        <h2>{{.Name}}</h2>
-        <p>Créé en {{.CreationDate}}</p>
-        <p>{{len .Members}} membres</p>
-      </div>
-    {{end}}
-  </div>
-</body>
+```go
+type Pokemon struct {
+	ID   int
+	Name string `json:"name"`
+}
+```
+
+**2.** Dans `getPokemons`, ajoutez la boucle **avant** le `return` :
+
+<div class="file">main.go</div>
+
+```go
+	json.NewDecoder(resp.Body).Decode(&liste)
+
+	for i := range liste.Results {
+		liste.Results[i].ID = i + 1
+	}
+	return liste.Results
+}
 ```
 
 </div>
 
 <div>
 
-| On écrit | Ça affiche |
+La liste de l'API **ne donne pas le numéro**. Mais elle est **dans
+l'ordre** : le 1er est le n° 1, le 2e le n° 2… On l'ajoute nous-mêmes.
+
+| On écrit | Ça veut dire |
 | --- | --- |
-| `{{.Image}}` | l'adresse de la photo, dans le `src` de l'image |
-| `{{.CreationDate}}` | l'année de création |
-| `{{len .Members}}` | le **nombre** de membres |
-
-<div class="box info mt-6">
-
-Les classes `grille` et `carte` ne font rien pour l'instant. Elles serviront
-au CSS, à l'étape 7.
-
-</div>
+| `ID int`, sans ``json:"…"`` | ce n'est pas l'API qui le remplit, c'est nous |
+| `for i := range liste.Results` | pour chaque position `i` : 0, 1, 2… |
+| `liste.Results[i].ID = i + 1` | le Pokémon en position 0 reçoit le n° 1… |
 
 </div>
 
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.62rem !important; }
+h1 { margin-bottom: 0.3rem; }
+.slidev-layout pre.slidev-code { font-size: 0.56rem !important; line-height: 1.35 !important; }
+.slidev-layout table { font-size: 0.8rem; }
 </style>
 
 <!--
-On n'a touché qu'au HTML : F5 suffit, pas besoin de relancer Go. Le
-rappeler, c'est la règle de l'étape 2.
+Les positions dans une liste commencent à 0, les numéros des Pokémon à 1 :
+d'où le + 1.
 
-len .Members : len est une fonction Go qu'on peut appeler dans un template.
+On écrit liste.Results[i].ID, et pas une boucle "for _, p := range" : p
+serait une copie, et le numéro ne serait pas gardé. Ne pas entrer dans le
+détail, sauf si on pose la question.
+
+On a modifié main.go : il faudra relancer. Mais on fait d'abord le HTML.
 -->
 
 ---
 
-# Rechargez la page
+# Remplacez la boucle dans `index.html`
+
+<div class="file">templates/index.html</div>
+
+```html
+<body>
+  <h1>Pokédex</h1>
+
+  <div class="grille">
+    {{range .}}
+      <div class="carte">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{.ID}}.png" alt="{{.Name}}">
+        <p>n° {{.ID}}</p>
+        <h2>{{.Name}}</h2>
+      </div>
+    {{end}}
+  </div>
+</body>
+```
+
+<div class="grid grid-cols-2 gap-8 mt-2">
+
+<div>
+
+| On écrit | Ça affiche |
+| --- | --- |
+| `…/pokemon/{{.ID}}.png` | l'image du Pokémon : `1.png`, `2.png`… |
+| `{{.ID}}` | son numéro |
+
+</div>
+
+<div class="box info">
+
+Les images sont rangées **par numéro** sur GitHub. Les classes `grille` et
+`carte` serviront au CSS, à l'étape 7.
+
+</div>
+
+</div>
+
+<style>
+h1 { margin-bottom: 0.3rem; }
+.slidev-layout pre.slidev-code { font-size: 0.56rem !important; }
+</style>
+
+<!--
+L'adresse de l'image est longue : copier-coller autorisé pour cette ligne.
+Une faute dedans donne une image cassée (une petite icône à la place).
+
+Ces images (les "sprites" des jeux) font 96 × 96 pixels et pèsent moins d'un
+Ko : les 151 se chargent vite, même sur le Wi-Fi de l'école.
+-->
+
+---
+
+# Relancez
 
 <div class="grid grid-cols-5 gap-8 mt-2">
 
 <div class="col-span-2">
 
-On n'a modifié que le HTML : <span class="kbd">F5</span> suffit.
+On a modifié `main.go` :
+
+1. <span class="kbd">Ctrl</span> + <span class="kbd">C</span>
+2. `go run .`
+3. <span class="kbd">F5</span>
 
 <div class="box trap mt-4">
 <span class="box-label">C'est moche</span>
 
-Les images sont énormes et tout est en colonne : **c'est normal**. Il n'y a
-pas encore de CSS.
+Tout est en colonne et les noms sont en minuscules : **c'est normal**. Il
+n'y a pas encore de CSS.
 
 </div>
 
@@ -1254,9 +1366,10 @@ pas encore de CSS.
 </div>
 
 <!--
-Une info vide sur toutes les cartes (pas d'année, 0 membres...) : regarder la
-struct Artist. Majuscule et json:"..." exact. Voir les notes de la slide
-"Décrivez un artiste en Go".
+Tous les numéros à 0, et des images cassées : la boucle n'est pas là, ou
+Go n'a pas été relancé.
+
+Le nom vide : la struct Pokemon (majuscule et json:"name" exact).
 -->
 
 ---
@@ -1273,11 +1386,11 @@ class: text-center
   <div><b>3</b>Une page HTML</div>
   <div><b>4</b>Appeler l'API</div>
   <div><b>5</b>Les noms dans la page</div>
-  <div><b>6</b>Une carte par artiste</div>
+  <div><b>6</b>Une carte par Pokémon</div>
   <div class="on"><b>7</b>Le CSS</div>
 </div>
 
-<p class="mt-8">À la fin : les artistes sont rangés en grille de cartes</p>
+<p class="mt-8">À la fin : les Pokémon sont rangés en grille de cartes</p>
 
 ---
 
@@ -1301,6 +1414,13 @@ body {
 
 h1 {
   text-align: center;
+  color: #e3350d;
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.5rem;
 }
 ```
 
@@ -1311,12 +1431,6 @@ h1 {
 <div class="file">static/style.css (suite)</div>
 
 ```css
-.grille {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-
 .carte {
   background: white;
   border-radius: 12px;
@@ -1326,8 +1440,12 @@ h1 {
 }
 
 .carte img {
-  width: 100%;
-  border-radius: 8px;
+  width: 120px;
+  image-rendering: pixelated;
+}
+
+.carte h2 {
+  text-transform: capitalize;
 }
 ```
 
@@ -1336,14 +1454,17 @@ h1 {
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.6rem !important; }
+.slidev-layout pre.slidev-code { font-size: 0.56rem !important; }
 </style>
 
 <!--
 Ici, le copier-coller est autorisé : ce n'est pas le sujet du cours. Ils
 connaissent le CSS.
 
-La grille : "autant de colonnes de 200px minimum que la largeur permet".
+La grille : "autant de colonnes de 160px minimum que la largeur permet".
+image-rendering: pixelated : l'image est agrandie sans être floue, en gros
+pixels, comme dans les vieux jeux.
+text-transform: capitalize : une majuscule au début du nom.
 -->
 
 ---
@@ -1361,7 +1482,7 @@ La grille : "autant de colonnes de 200px minimum que la largeur permet".
 ```html
 <head>
   <meta charset="UTF-8">
-  <title>Groupie Tracker</title>
+  <title>Pokédex</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 ```
@@ -1476,16 +1597,17 @@ import (
 	"net/http"
 )
 
-type Artist struct {
-	ID           int      `json:"id"`
-	Name         string   `json:"name"`
-	Image        string   `json:"image"`
-	CreationDate int      `json:"creationDate"`
-	Members      []string `json:"members"`
+type Pokemon struct {
+	ID   int
+	Name string `json:"name"`
 }
 
-func getArtists() []Artist {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+type ListePokemon struct {
+	Results []Pokemon `json:"results"`
+}
+
+func getPokemons() []Pokemon {
+	resp, err := http.Get("https://pokeapi.co/api/v2/pokemon?limit=151")
 	if err != nil {
 		fmt.Println("Erreur :", err)
 		return nil
@@ -1498,16 +1620,20 @@ func getArtists() []Artist {
 <div>
 
 ```go
-	var artists []Artist
-	json.NewDecoder(resp.Body).Decode(&artists)
-	return artists
+	var liste ListePokemon
+	json.NewDecoder(resp.Body).Decode(&liste)
+
+	for i := range liste.Results {
+		liste.Results[i].ID = i + 1
+	}
+	return liste.Results
 }
 
 func accueil(w http.ResponseWriter, r *http.Request) {
-	artists := getArtists()
+	pokemons := getPokemons()
 
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	tmpl.Execute(w, artists)
+	tmpl.Execute(w, pokemons)
 }
 
 func main() {
@@ -1525,21 +1651,17 @@ func main() {
 
 <style>
 h1 { margin-bottom: 0.3rem; }
-.slidev-layout pre.slidev-code { font-size: 0.53rem !important; line-height: 1.42 !important; }
+.slidev-layout pre.slidev-code { font-size: 0.5rem !important; line-height: 1.4 !important; }
 </style>
 
 <!--
 Fichier de référence. Il repart tel quel en séance 2 : leur dire de garder
-le dossier groupie.
+le dossier pokedex.
 -->
 
 ---
 
 # Le projet complet · `index.html`
-
-<div class="grid grid-cols-5 gap-8 mt-2">
-
-<div class="col-span-3">
 
 <div class="file">templates/index.html</div>
 
@@ -1548,19 +1670,18 @@ le dossier groupie.
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Groupie Tracker</title>
+  <title>Pokédex</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <h1>Groupie Tracker</h1>
+  <h1>Pokédex</h1>
 
   <div class="grille">
     {{range .}}
       <div class="carte">
-        <img src="{{.Image}}" alt="{{.Name}}">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{.ID}}.png" alt="{{.Name}}">
+        <p>n° {{.ID}}</p>
         <h2>{{.Name}}</h2>
-        <p>Créé en {{.CreationDate}}</p>
-        <p>{{len .Members}} membres</p>
       </div>
     {{end}}
   </div>
@@ -1568,18 +1689,16 @@ le dossier groupie.
 </html>
 ```
 
-</div>
-
-<div class="col-span-2">
+<div class="grid grid-cols-2 gap-8 mt-3">
 
 <div class="box info">
 <span class="box-label">Votre projet</span>
 
-<div class="term">groupie/<br/>├── go.mod<br/>├── main.go<br/>├── static/<br/>│&nbsp;&nbsp;&nbsp;└── style.css<br/>└── templates/<br/>&nbsp;&nbsp;&nbsp;&nbsp;└── index.html</div>
+`pokedex/` : `go.mod`, `main.go`, `static/style.css`, `templates/index.html`
 
 </div>
 
-<div class="box good mt-4">
+<div class="box good">
 
 **Go** va chercher les données et prépare la page.<br/>
 **HTML et CSS** s'occupent de l'affichage.
@@ -1588,10 +1707,9 @@ le dossier groupie.
 
 </div>
 
-</div>
-
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.56rem !important; line-height: 1.4 !important; }
+h1 { margin-bottom: 0.3rem; }
+.slidev-layout pre.slidev-code { font-size: 0.5rem !important; line-height: 1.35 !important; }
 </style>
 
 <!--
@@ -1605,18 +1723,19 @@ simplement. Elle sera reprise en séance 2.
 
 | Ce que vous voyez | La solution |
 | --- | --- |
-| `go.mod file not found` | vous n'êtes pas dans le dossier : `cd groupie` |
+| `go.mod file not found` | vous n'êtes pas dans le dossier : `cd pokedex` |
 | La page ne change pas après une modification | `main.go` modifié ? <span class="kbd">Ctrl</span> + <span class="kbd">C</span>, puis `go run .` |
 | `bind: Only one usage of each socket address` | un autre serveur tourne déjà : fermez l'autre terminal |
 | `open templates/index.html: The system cannot find the path specified` | vérifiez le nom du dossier `templates` et du fichier `index.html` |
 | `imported and not used` ou `undefined: json` | un import en trop, ou un import manquant |
-| `0 artistes`, ou une page sans artistes | le `&` devant `artists` dans `Decode`, et `Execute(w, artists)` |
+| `0 Pokémon`, ou une page sans Pokémon | le `&` devant `liste` dans `Decode`, ``json:"results"``, et `Execute(w, pokemons)` |
 | Une information vide sur toutes les cartes | dans la struct : la **majuscule**, et le texte exact de ``json:"…"`` |
+| Tous les numéros à 0, les images cassées | la boucle `ID = i + 1` dans `getPokemons`, puis relancez Go |
 | Le CSS ne s'applique pas | la ligne `http.Handle`, le `<link>`, puis <span class="kbd">Ctrl</span> + <span class="kbd">F5</span> |
 
 <style>
-.slidev-layout table { font-size: 0.78rem; }
-.slidev-layout td, .slidev-layout th { padding: 0.32rem 0.6rem; }
+.slidev-layout table { font-size: 0.74rem; }
+.slidev-layout td, .slidev-layout th { padding: 0.3rem 0.6rem; }
 </style>
 
 <!--
@@ -1631,58 +1750,47 @@ La slide à garder ouverte pendant que tu circules.
 
 <div>
 
-**1. Le premier album**
+**1. Le nombre de Pokémon**
 
-Dans la struct `Artist` (`main.go`), ajoutez :
-
-<div class="file">main.go</div>
-
-```go
-	FirstAlbum   string   `json:"firstAlbum"`
-```
-
-Dans la carte (`index.html`), ajoutez :
+Dans `index.html`, sous le `<h1>`, ajoutez :
 
 <div class="file">templates/index.html</div>
 
 ```html
-<p>Premier album : {{.FirstAlbum}}</p>
+<p>{{len .}} Pokémon</p>
 ```
 
-Puis relancez Go.
+Le point est la liste entière, comme dans `{{range .}}`. <span class="kbd">F5</span> suffit.
 
 </div>
 
 <div>
 
-**2. La liste des membres**
+**2. La deuxième génération**
 
-Dans la carte, ajoutez :
+Dans `getPokemons` (`main.go`), changez le nombre à la fin de l'adresse :
 
-<div class="file">templates/index.html</div>
+<div class="file">main.go</div>
 
-```html
-<ul>
-  {{range .Members}}
-    <li>{{.}}</li>
-  {{end}}
-</ul>
+```go
+"https://pokeapi.co/api/v2/pokemon?limit=251"
 ```
 
-Une boucle **dans** la boucle : pour chaque membre de l'artiste, `{{.}}`
-écrit son nom.
+Puis relancez Go : 251 Pokémon, jusqu'à Celebi.
 
 </div>
 
 </div>
 
 <style>
-.slidev-layout pre.slidev-code { font-size: 0.64rem !important; }
+.slidev-layout pre.slidev-code { font-size: 0.66rem !important; }
 </style>
 
 <!--
-Le bonus 2 réutilise exactement le principe de l'étape 5. Bon test pour voir
-qui a compris range.
+Le bonus 1 réutilise len, le bonus 2 montre que tout vient de l'API : on
+change un nombre, le site affiche 100 Pokémon de plus, sans toucher au HTML.
+
+Le numéro reste juste, car la liste de l'API est toujours dans l'ordre.
 -->
 
 ---
@@ -1696,7 +1804,7 @@ qui a compris range.
 - un **serveur web** en Go
 - une **page HTML** envoyée par Go (un template)
 - un **appel à une API** et la lecture de son **JSON**
-- une **boucle** dans le HTML pour afficher les 52 artistes
+- une **boucle** dans le HTML pour afficher les 151 Pokémon
 - un fichier **CSS** servi par Go
 
 </div>
@@ -1706,15 +1814,16 @@ qui a compris range.
 <div class="box info">
 <span class="box-label">Séance 2</span>
 
-On clique sur un artiste et on arrive **sur sa page**, avec ses concerts.
+On clique sur un Pokémon et on arrive **sur sa fiche** : sa grande image,
+son nom en français, ses types.
 
-Et on gère les problèmes : un artiste qui n'existe pas, une API qui ne
+Et on gère les problèmes : un Pokémon qui n'existe pas, une API qui ne
 répond pas.
 
 </div>
 
 <div class="box trap mt-4">
-<span class="box-label">Gardez votre dossier groupie</span>
+<span class="box-label">Gardez votre dossier pokedex</span>
 
 On repart de ce code la prochaine fois.
 
