@@ -7,15 +7,19 @@
     "dev:1": "slidev diapo-1.md --open",
     "dev:2": "slidev diapo-2.md --open",
     "dev:3": "slidev diapo-3.md --open",
+    "dev:tp1": "slidev diapo-tp1.md --open",
     "build:1": "slidev build diapo-1.md --out dist/diapo-1",
     "build:2": "slidev build diapo-2.md --out dist/diapo-2",
     "build:3": "slidev build diapo-3.md --out dist/diapo-3",
+    "build:tp1": "slidev build diapo-tp1.md --out dist/diapo-tp1",
     "check:1": "npm run build:1 && node check-layout.cjs dist/diapo-1",
     "check:2": "npm run build:2 && node check-layout.cjs dist/diapo-2",
     "check:3": "npm run build:3 && node check-layout.cjs dist/diapo-3",
+    "check:tp1": "npm run build:tp1 && node check-layout.cjs dist/diapo-tp1",
     "export:1": "slidev export diapo-1.md --per-slide --wait-until networkidle --wait 1500",
     "export:2": "slidev export diapo-2.md --per-slide --wait-until networkidle --wait 1500",
-    "export:3": "slidev export diapo-3.md --per-slide --wait-until networkidle --wait 1500"
+    "export:3": "slidev export diapo-3.md --per-slide --wait-until networkidle --wait 1500",
+    "export:tp1": "slidev export diapo-tp1.md --per-slide --wait-until networkidle --wait 1500"
   },
   "dependencies": {
     "@slidev/cli": "^52.19.1",
