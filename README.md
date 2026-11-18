@@ -115,7 +115,7 @@ version Groupie : la page `Bonjour !` est identique). À l'étape 4, la ligne
 
 ## Diapo 2 · La fiche d'un Pokémon
 
-**48 slides, 7 étapes, 2 pauses.** On repart du dossier `pokedex` de la
+**49 slides, 7 étapes, 2 pauses.** On repart du dossier `pokedex` de la
 séance 1.
 
 | Étape | Ce qu'ils écrivent | Ce qu'ils voient | Slides | Durée |
@@ -128,17 +128,17 @@ séance 1.
 | **4** | `Traduction`, `Espece`, `getEspece(id)` (2e endpoint), `nomFrancais`, `PagePokemon` | « Bulbizarre » sur la fiche | 19–25 | 40 min |
 | **5** | `erreur()`, test `ID == 0`, `"/{$}"` + `introuvable` | « Oups ! » et un 404 | 26–32 | 30 min |
 | | Pause | | 33 | 10 min |
-| **6** | `appelerAPI` (timeout, statut, 404) + les `get…` qui renvoient une erreur | sans Wi-Fi : la page d'erreur 500 | 34–40 | 35 min |
-| **7** | le CSS `.fiche`, `.types` et `.erreur` | la fiche finale | 41–43 | 10 min |
-| | Qui fait quoi, dépannage, 2 bonus, bilan | | 44–48 | 10 min |
-| | | | | **≈ 240 min** |
+| **6** | la slide des codes HTTP (2xx à 5xx), `appelerAPI` (timeout, statut, 404) + les `get…` qui renvoient une erreur | sans Wi-Fi : la page d'erreur 500 | 34–41 | 40 min |
+| **7** | le CSS `.fiche`, `.types` et `.erreur` | la fiche finale | 42–44 | 10 min |
+| | Qui fait quoi, dépannage, 2 bonus, bilan | | 45–49 | 10 min |
+| | | | | **≈ 245 min** |
 
 ### Avant la séance 2
 
 - Le dépôt [b1-go-web-api-pokedex](https://github.com/ynov-vinsonneau-antoine/b1-go-web-api-pokedex)
   sert de rattrapage, une branche par séance : **`seance-1`** (le projet de
   fin de séance 1, pour ceux qui l'ont perdu, slide 3) et **`seance-2`**
-  (celui de fin de séance 2, slide 44). Les deux sont à pousser toi-même
+  (celui de fin de séance 2, slide 45). Les deux sont à pousser toi-même
   avant la séance 2.
 - L'étape 6 se teste **en coupant le Wi-Fi** : prévenir qu'on le rallume tout
   de suite après.

@@ -1602,6 +1602,85 @@ qu'il existe. On mélange "introuvable" et "en panne" : c'est ce qu'on règle.
 
 ---
 
+# Les codes HTTP
+
+<div class="grid grid-cols-2 gap-8 mt-2">
+
+<div>
+
+Avec **chaque réponse**, le serveur envoie un **code à 3 chiffres**. Le
+**premier chiffre** donne sa famille :
+
+| Code | Ça veut dire | Exemple |
+| --- | --- | --- |
+| **2**xx | tout va bien | **200** : voici la page |
+| **3**xx | allez voir ailleurs | **301** : la page a déménagé |
+| **4**xx | **le visiteur** a mal demandé | **404** : introuvable · **400** : demande mal écrite |
+| **5**xx | **le serveur** a un problème | **500** : erreur du serveur |
+
+<div class="box trap mt-4">
+<span class="box-label">La question à se poser : à qui la faute ?</span>
+
+Au **visiteur**, qui demande une adresse qui n'existe pas : un **4xx**.<br/>
+Au **serveur**, qui n'arrive pas à faire son travail : un **5xx**.
+
+</div>
+
+</div>
+
+<div>
+
+<div class="box info">
+<span class="box-label">Dans notre site</span>
+
+| On demande | Code |
+| --- | --- |
+| `/pokemon/1` | **200** |
+| `/pokemon/9999`, `/nimportequoi` | **404** |
+| n'importe quelle page, sans Wi-Fi | **500** |
+
+Sans Wi-Fi, le visiteur n'y est pour rien : c'est **notre serveur** qui
+n'arrive pas à joindre l'API.
+
+</div>
+
+<div class="box good mt-4">
+
+L'API aussi envoie un code **à notre programme Go**. Il est dans
+**`resp.StatusCode`** : on s'en sert sur la slide suivante.
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+h1 { margin-bottom: 0.3rem; }
+.slidev-layout table { font-size: 0.74rem; }
+.slidev-layout td, .slidev-layout th { padding: 0.28rem 0.6rem; }
+</style>
+
+<!--
+Le code se voit dans F12 > Réseau, colonne "Statut" : le montrer au
+vidéoprojecteur sur /pokemon/1, puis /pokemon/9999.
+
+Pour voir un 400 : pokeapi.co/api/v2/pokemonn/1 (avec deux n). L'API répond
+"Invalid endpoint", code 400.
+
+Seuls 200, 404 et 500 servent dans le projet. Les autres sont là pour qu'ils
+reconnaissent la famille quand ils en croiseront un.
+
+Si la question vient : une API trop lente donne en vrai un 504 (Gateway
+Timeout). On garde 500 pour rester simple : c'est aussi un problème du
+serveur.
+
+POUR TOI : 404 ≈ NotFoundException, 500 ≈ InternalServerErrorException dans
+Nest.
+-->
+
+---
+
 # Une seule fonction pour appeler l'API
 
 <div class="grid grid-cols-2 gap-8 mt-2">
