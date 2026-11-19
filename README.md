@@ -20,6 +20,7 @@ inventer. Chaque séance ajoute un morceau **visible dans le navigateur**.
 | `diapo-1.md` | **La page d'accueil** | les 151 premiers Pokémon en cartes | ✅ écrit, vérifié |
 | `diapo-2.md` | **La fiche d'un Pokémon** | une fiche par Pokémon avec son nom français et ses types, et les erreurs (Pokémon introuvable, API en panne) | ✅ écrit, vérifié |
 | `diapo-3.md` | **Filtres et graphique** | une recherche, un filtre par type, un graphique des statistiques | à écrire |
+| `diapo-tp2.md` | **TP de la séance 2** (1h30) | la fiche complète : talents cachés, taille, stats, espèce, évolutions | ✅ écrit, corrigé testé |
 
 ## Lancer
 
@@ -174,6 +175,35 @@ Testé : `/pokemon/1`, `/pokemon/pikachu` (200), `/pokemon/9999`,
 `/pokemon/abc`, `/nimportequoi` (404), et l'API injoignable (500 sur
 l'accueil et la fiche). La capture 6 est prise avec une adresse d'API
 volontairement fausse, pour simuler la panne.
+
+## TP 2 · Le Pokédex complet
+
+**12 slides, 1h30 et plus.** Sur leur projet de la séance 2. Pas de code
+dans les slides : le corrigé est dans les notes présentateur.
+
+| Niveau | Ce qu'ils font | Durée |
+|---|---|---|
+| | Présentation, rappel « un type Go par valeur JSON » | 10 min |
+| **1** | Talents (`is_hidden` → `bool`, « (caché) »), taille et poids (`int` → `float64`), statistiques | 30 min |
+| **2** | Sur l'espèce déjà appelée : catégorie et description en français, badges Légendaire / Fabuleux (`bool`) | 25 min |
+| **3** | Les évolutions : 3e endpoint (`/evolution-chain/{id}`, adresse donnée par l'espèce), struct récursive `Maillon`, liens par nom | 30 min et plus |
+
+Les points durs voulus :
+
+- **`7 / 10` en `int` donne `0`** : Bulbizarre mesure 0 m tant qu'ils ne
+  convertissent pas en `float64` **avant** de diviser.
+- **La struct qui se contient elle-même** : `EvolvesTo []Maillon` dans
+  `Maillon`. Deux `range` imbriqués suffisent (3 étapes au maximum).
+- **Évoli (133)** : 8 évolutions au même niveau. Avec des flèches, on lirait
+  une chaîne : il faut des listes imbriquées.
+- **L'adresse de la chaîne est complète** : `strings.TrimPrefix` avant de la
+  passer à `appelerAPI`.
+- Les évolutions ne donnent que le nom anglais : `/pokemon/ivysaur` marche,
+  `getPokemon` et `getEspece` acceptent le nom.
+
+Corrigé testé le 19/11/2026 contre la vraie API : `/pokemon/1`, `25`
+(Pichu → Pikachu → Raichu), `133` (Évoli), `144` (Légendaire, sans
+évolution), `151` (Fabuleux), `ivysaur` (par le nom), `9999` et `abc` (404).
 
 ## Couverture du syllabus
 
